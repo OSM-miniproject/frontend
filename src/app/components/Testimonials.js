@@ -34,6 +34,7 @@ const Testimonials = (props) => {
             </div>
         </div>
     );
+
 };
 
 export default Testimonials;
