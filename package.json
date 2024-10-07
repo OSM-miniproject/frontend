@@ -12,6 +12,7 @@
     "next": "14.2.8",
     "react": "^18",
     "react-dom": "^18",
+<<<<<<< HEAD
     "react-icons": "^5.3.0",
     "react-router-dom": "^6.26.2"
   },
@@ -20,6 +21,14 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.8",
     "postcss": "^8.4.47",
+=======
+    "react-icons": "^5.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8",
+    "eslint-config-next": "14.2.8",
+    "postcss": "^8",
+>>>>>>> fd090130626e564355679af23f977264000c3862
     "tailwindcss": "^3.4.13"
   }
 }

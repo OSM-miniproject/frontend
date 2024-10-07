@@ -34,7 +34,10 @@ const Testimonials = (props) => {
             </div>
         </div>
     );
+<<<<<<< HEAD
 
+=======
+>>>>>>> fd090130626e564355679af23f977264000c3862
 };
 
 export default Testimonials;
