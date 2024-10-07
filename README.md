@@ -1,7 +1,4 @@
 # OSM
-<<<<<<< HEAD
-just the frontend
-=======
 ## To run
 ```bash
 npm run dev
@@ -27,4 +24,3 @@ export const metadata = {
 layout.js has all the other page as children passed to it. It has the Rootlayout function which destructures the children and renders them, So to have a consistent layout all across the webpage, we can include header and footer in the layout.js which will apply it to all subsequent pages
 ### Components
 All the reusable stuff of the website should be in this dir
->>>>>>> fd090130626e564355679af23f977264000c3862
