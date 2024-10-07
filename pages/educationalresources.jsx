@@ -1,5 +1,5 @@
-import Footer from '@/app/components/Footer'
-import Navbar from '@/app/components/Navbar'
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
 import React from 'react'
 
 const Educational = () => {
@@ -8,6 +8,7 @@ const Educational = () => {
       <Navbar/>
       <What/> 
       <Symptoms/>
+      
       <Treatments/>
       <Help/>
       <Footer/>

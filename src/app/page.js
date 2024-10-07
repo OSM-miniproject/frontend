@@ -1,8 +1,8 @@
-import Hero from "./components/Hero";
-import About from "./components/About";
-import Contactus from "./components/Contactus";
-import Faqs from "./components/Faqs";
-import Testimonials from "./components/Testimonials";
+import Hero from "../components/Hero";
+import About from "../components/About";
+import Contactus from "../components/Contactus";
+import Faqs from "../components/Faqs";
+import Testimonials from "../components/Testimonials";
 import reviews from "../../data";
 import './globals.css'
 
