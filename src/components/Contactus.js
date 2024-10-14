@@ -1,18 +1,6 @@
 
 const ContactUs = () => {
     return (
-<<<<<<< HEAD
-      <div class="grid sm:grid-cols-2 items-start gap-16 p-4 mx-auto max-w-4xl bg-white font-[sans-serif]">
-            <div>
-                <h1 class="text-gray-800 text-3xl font-extrabold">Let's Talk</h1>
-                <p class="text-sm text-gray-500 mt-4">Have some big idea or brand to develop and need help? Then reach out we'd love to hear about your project  and provide help.</p>
-
-                <div class="mt-12">
-                    <h2 class="text-gray-800 text-base font-bold">Email</h2>
-                    <ul class="mt-4">
-                        <li class="flex items-center">
-                            <div class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-=======
       <div className="grid sm:grid-cols-2 items-start gap-16 p-4 mx-auto max-w-4xl bg-white font-[sans-serif]">
             <div>
                 <h1 className="text-gray-800 text-3xl font-extrabold">Lets Talk</h1>
@@ -23,7 +11,6 @@ const ContactUs = () => {
                     <ul className="mt-4">
                         <li className="flex items-center">
                             <div className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
->>>>>>> fd090130626e564355679af23f977264000c3862
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                                     viewBox="0 0 479.058 479.058">
                                     <path
@@ -31,32 +18,19 @@ const ContactUs = () => {
                                         data-original="#000000" />
                                 </svg>
                             </div>
-<<<<<<< HEAD
-                            <a href="javascript:void(0)" class="text-[#007bff] text-sm ml-4">
-                                <small class="block">Mail</small>
-=======
                             <a href="javascript:void(0)" className="text-[#007bff] text-sm ml-4">
                                 <small className="block">Mail</small>
->>>>>>> fd090130626e564355679af23f977264000c3862
                                 <strong>info@example.com</strong>
                             </a>
                         </li>
                     </ul>
                 </div>
 
-<<<<<<< HEAD
-                <div class="mt-12">
-                    <h2 class="text-gray-800 text-base font-bold">Socials</h2>
-
-                    <ul class="flex mt-4 space-x-4">
-                        <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-=======
                 <div className="mt-12">
                     <h2 className="text-gray-800 text-base font-bold">Socials</h2>
 
                     <ul className="flex mt-4 space-x-4">
                         <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
->>>>>>> fd090130626e564355679af23f977264000c3862
                             <a href="javascript:void(0)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                                     viewBox="0 0 24 24">
@@ -66,11 +40,7 @@ const ContactUs = () => {
                                 </svg>
                             </a>
                         </li>
-<<<<<<< HEAD
-                        <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-=======
                         <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
->>>>>>> fd090130626e564355679af23f977264000c3862
                             <a href="javascript:void(0)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                                     viewBox="0 0 511 512">
@@ -80,11 +50,7 @@ const ContactUs = () => {
                                 </svg>
                             </a>
                         </li>
-<<<<<<< HEAD
-                        <li class="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-=======
                         <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
->>>>>>> fd090130626e564355679af23f977264000c3862
                             <a href="javascript:void(0)">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                                     viewBox="0 0 24 24">
@@ -98,19 +64,6 @@ const ContactUs = () => {
                 </div>
             </div>
 
-<<<<<<< HEAD
-            <form class="ml-auto space-y-4">
-                <input type='text' placeholder='Name'
-                    class="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
-                <input type='email' placeholder='Email'
-                    class="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
-                <input type='text' placeholder='Subject'
-                    class="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
-                <textarea placeholder='Message' rows="6"
-                    class="w-full rounded-md px-4 bg-gray-100 text-gray-800 text-sm pt-3 outline-blue-500 focus:bg-transparent"></textarea>
-                <button type='button'
-                    class="text-white bg-blue-500 hover:bg-blue-600 tracking-wide rounded-md text-sm px-4 py-3 w-full !mt-6">Send</button>
-=======
             <form className="ml-auto space-y-4">
                 <input type='text' placeholder='Name'
                     className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
@@ -122,7 +75,6 @@ const ContactUs = () => {
                     className="w-full rounded-md px-4 bg-gray-100 text-gray-800 text-sm pt-3 outline-blue-500 focus:bg-transparent"></textarea>
                 <button type='button'
                     className="text-white bg-blue-500 hover:bg-blue-600 tracking-wide rounded-md text-sm px-4 py-3 w-full !mt-6">Send</button>
->>>>>>> fd090130626e564355679af23f977264000c3862
             </form>
         </div>
     );

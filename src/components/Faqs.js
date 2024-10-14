@@ -62,11 +62,7 @@ const FAQs = () => {
               aria-labelledby="basic-heading-one-with-arrow"
             >
               <p className="text-base text-gray-900 leading-6">
-<<<<<<< HEAD
-                To contact customer support, look for a 'Contact us' or 'Help'
-=======
                 To contact customer support, look for a Contact us or Help
->>>>>>> fd090130626e564355679af23f977264000c3862
                 button or link on the website or platform. You may be able to
                 email, call, or chat with customer support for assistance.
               </p>
@@ -113,11 +109,7 @@ const FAQs = () => {
               aria-labelledby="basic-heading-two-with-arrow"
             >
               <p className="text-base text-gray-900 leading-6">
-<<<<<<< HEAD
-                To contact customer support, look for a 'Contact us' or 'Help'
-=======
                 To contact customer support, look for a Contact us or Help
->>>>>>> fd090130626e564355679af23f977264000c3862
                 button or link on the website or platform. You may be able to
                 email, call, or chat with customer support for assistance.
               </p>
