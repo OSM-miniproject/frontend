@@ -5,6 +5,8 @@
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
+import { useRouter } from 'next/navigation'
+
 
 const AssessmentPage = () => {
   const [formData, setFormData] = useState({
@@ -28,6 +30,9 @@ const AssessmentPage = () => {
     checkingGas: 0,
     repulsiveThoughts: 0
   });
+
+
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,6 +60,7 @@ const AssessmentPage = () => {
       if (response.ok) {
         console.log('Data saved successfully:', result);
         toast.success(result.message || 'Assessment data received successfully!');
+        router.push('/stories');
       } else {
         console.error('Error saving data:', result.message);
         toast.error(result.message || 'Failed to save assessment data.');
