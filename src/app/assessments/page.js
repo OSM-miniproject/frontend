@@ -1,5 +1,9 @@
 'use client';
 
+
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 
 const AssessmentPage = () => {
@@ -33,11 +37,37 @@ const AssessmentPage = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Submitted data: ', formData);
-    // You can redirect the user to the actual assessment page here.
+  
+    // Send the form data to the backend API (POST request)
+    try {
+      const response = await fetch('http://localhost:5000/api/assessments', {  // Change URL to backend server
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData), // Send the form data in the request body
+      });
+  
+      const result = await response.json();
+  
+      if (response.ok) {
+        console.log('Data saved successfully:', result);
+        toast.success(result.message || 'Assessment data received successfully!');
+      } else {
+        console.error('Error saving data:', result.message);
+        toast.error(result.message || 'Failed to save assessment data.');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+    }
   };
+  
+
+  
+  
+  
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -194,7 +224,109 @@ const AssessmentPage = () => {
           />
         </label>
 
-        {/* Repeat similar structure for the remaining questions */}
+        <label className="block mb-4">
+          I avoid touching certain objects because I feel they are dirty.
+          <input
+            type="range"
+            name="avoidTouch"
+            min="0"
+            max="5"
+            value={formData.avoidTouch}
+            onChange={handleInputChange}
+            className="block w-full mt-1"
+          />
+        </label>
+
+        <label className="block mb-4">
+          I feel the need to control my thoughts to avoid unwanted ones.
+          <input
+            type="range"
+            name="thoughtControl"
+            min="0"
+            max="5"
+            value={formData.thoughtControl}
+            onChange={handleInputChange}
+            className="block w-full mt-1"
+          />
+        </label>
+
+        <label className="block mb-4">
+          I often check things repeatedly (e.g., doors, locks, etc.).
+          <input
+            type="range"
+            name="checkThings"
+            min="0"
+            max="5"
+            value={formData.checkThings}
+            onChange={handleInputChange}
+            className="block w-full mt-1"
+          />
+        </label>
+
+        <label className="block mb-4">
+          I like to arrange items in a specific order or pattern.
+          <input
+            type="range"
+            name="itemsArranged"
+            min="0"
+            max="5"
+            value={formData.itemsArranged}
+            onChange={handleInputChange}
+            className="block w-full mt-1"
+          />
+        </label>
+
+        <label className="block mb-4">
+          I wash my hands excessively to avoid contamination.
+          <input
+            type="range"
+            name="handWashing"
+            min="0"
+            max="5"
+            value={formData.handWashing}
+            onChange={handleInputChange}
+            className="block w-full mt-1"
+          />
+        </label>
+
+        <label className="block mb-4">
+          I get lost in my thoughts for long periods.
+          <input
+            type="range"
+            name="engrossedThoughts"
+            min="0"
+            max="5"
+            value={formData.engrossedThoughts}
+            onChange={handleInputChange}
+            className="block w-full mt-1"
+          />
+        </label>
+
+        <label className="block mb-4">
+          I frequently check if the gas is turned off.
+          <input
+            type="range"
+            name="checkingGas"
+            min="0"
+            max="5"
+            value={formData.checkingGas}
+            onChange={handleInputChange}
+            className="block w-full mt-1"
+          />
+        </label>
+
+        <label className="block mb-4">
+          I have repulsive thoughts that I cannot control.
+          <input
+            type="range"
+            name="repulsiveThoughts"
+            min="0"
+            max="5"
+            value={formData.repulsiveThoughts}
+            onChange={handleInputChange}
+            className="block w-full mt-1"
+          />
+        </label>
 
         {/* Button to proceed */}
         <button
@@ -203,6 +335,7 @@ const AssessmentPage = () => {
         >
           Proceed to Assessment
         </button>
+        <ToastContainer/>
       </form>
     </div>
   );
