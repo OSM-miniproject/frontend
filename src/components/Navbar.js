@@ -31,12 +31,28 @@ const Navbar = () => {
     }
   };
 
+  const handleAboutClick = (e) => {
+    e.preventDefault();
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      aboutSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleFaqClick = (e) => {
+    e.preventDefault();
+    const faqsSection = document.getElementById('faqs');
+    if (faqsSection) {
+      faqsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   if (!isMounted) {
     return null; // Don't render anything until mounted (on client side)
   }
 
   return (
-    <section className="w-full px-8 text-[#1E2D3D] bg-[#FFFFFF]">
+    <section className="w-full px-8 sticky top-0 z-50 text-[#1E2D3D] bg-[#FFFFFF]">
       <div className="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
         <div className="relative flex flex-col md:flex-row">
           <a 
@@ -53,8 +69,20 @@ const Navbar = () => {
             >
               Home
             </a>
-            <a href="#_" className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77]">About</a>
-            <a href="#_" className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77]">FaQs</a>
+            <a
+              href="#about" 
+              onClick={handleAboutClick} // Add scroll handler for About
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
+            >
+              About
+            </a>
+            <a
+              href="#faqs" 
+              onClick={handleFaqClick} // Add scroll handler for FaQs
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
+            >
+              FaQs
+            </a>
             <a href="#_" className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77]">Resources</a>
           </nav>
         </div>
