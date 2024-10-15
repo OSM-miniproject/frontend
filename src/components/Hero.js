@@ -5,7 +5,7 @@ const Hero = () => {
   const router = useRouter();
 
   const handleButtonClick = () => {
-    router.push('/questionnaire');  // Use router.push to navigate to the questionnaire page
+    router.push('/assessments');  // Use router.push to navigate to the questionnaire page
   };
 
   return (

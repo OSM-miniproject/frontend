@@ -47,6 +47,18 @@ const Navbar = () => {
     }
   };
 
+  const handleResourcesClick = () => {
+    if (isMounted) {
+      router.push('/resources'); // Redirect to the resources page
+    }
+  };
+
+  const handleAssessmentsClick = () => {
+    if (isMounted) {
+      router.push('/assessments'); // Redirect to the assessments page
+    }
+  }
+
   if (!isMounted) {
     return null; // Don't render anything until mounted (on client side)
   }
@@ -55,6 +67,7 @@ const Navbar = () => {
     <section className="w-full px-8 sticky top-0 z-50 text-[#1E2D3D] bg-[#FFFFFF]">
       <div className="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
         <div className="relative flex flex-col md:flex-row">
+          {/* Logo */}
           <a 
             href="#_" 
             onClick={handleHomeClick} // Add the click handler for the "Home" link
@@ -62,7 +75,19 @@ const Navbar = () => {
           >
             <span className="mx-auto text-xl font-black leading-none text-[#1E2D3D] select-none">OCD<span className="text-[#3ABEFF]">.</span></span>
           </a>
-          <nav className="flex flex-wrap items-center mb-5 text-base md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-[#F2F4F7]">
+
+          <nav className="flex flex-wrap items-center md:ml-8">
+            <a 
+              onClick={handleAssessmentsClick} 
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
+            >
+              Assessments
+            </a>
+          </nav>
+          </div>
+
+          <div className='flex flex-col md:flex-row items-center md:space-x-8'>
+          <nav className="flex flex-wrap items-center mb-5 text-base md:text-right md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-[#F2F4F7]">
             <a 
               onClick={handleHomeClick} // Add the click handler for "Home"
               className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
@@ -83,7 +108,11 @@ const Navbar = () => {
             >
               FaQs
             </a>
-            <a href="#_" className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77]">Resources</a>
+            <a 
+            onClick={handleResourcesClick}
+            className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer">
+              Resources
+            </a>
           </nav>
         </div>
 
