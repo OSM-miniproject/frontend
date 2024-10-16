@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import Link from 'next/link';
+import Story from '../../components/Story'; // Import your Story component
 
 const StoriesPage = () => {
     const [stories, setStories] = useState([]);
@@ -9,7 +9,7 @@ const StoriesPage = () => {
     useEffect(() => {
         const fetchStories = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/stories'); // Adjust the URL as needed
+                const response = await fetch('http://localhost:5000/api/stories'); // Adjust this URL based on the backend route
                 if (!response.ok) throw new Error('Failed to fetch stories');
                 const data = await response.json();
                 setStories(data);
@@ -25,18 +25,11 @@ const StoriesPage = () => {
     if (loading) return <div>Loading...</div>;
 
     return (
-        <div className="p-5">
-            <h1 className="text-3xl font-bold">Stories</h1>
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
+        <div className="stories-page">
+            <h1 className="text-3xl font-bold">OCD Stories</h1>
+            <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 {stories.map((story) => (
-                    <div key={story._id} className="border p-4 rounded-lg shadow">
-                        <h2 className="text-xl font-semibold">{story.title}</h2>
-                        <Link href={`/stories/${story._id}`}>
-                            <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded">
-                                Read More
-                            </button>
-                        </Link>
-                    </div>
+                    <Story key={story._id} story={story} />
                 ))}
             </div>
         </div>
