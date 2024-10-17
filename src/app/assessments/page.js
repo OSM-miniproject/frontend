@@ -44,10 +44,11 @@ const AssessmentPage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formData);
   
     // Send the form data to the backend API (POST request)
     try {
-      const response = await fetch('http://localhost:5000/api/assessments', {  // Change URL to backend server
+      const response = await fetch('http://localhost:5000/api/responses', {  // Change URL to backend server
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
