@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Story from '../../components/Story'; // Import your Story component
-
+import '../globals.css';
 const StoriesPage = () => {
     const [stories, setStories] = useState([]);
     const [loading, setLoading] = useState(true);

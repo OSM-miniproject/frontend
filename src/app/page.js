@@ -4,11 +4,15 @@ import Contactus from "../components/Contactus";
 import Faqs from "../components/Faqs";
 import Testimonials from "../components/Testimonials";
 import reviews from "../../data";
-import './globals.css'
+import Navbar from "../components/Navbar";
+import "./globals.css";
 
 export default function Home() {
   return (
     <div>
+      <section id="navbar">
+        <Navbar />
+      </section>
       <section id="home">
         <Hero />
       </section>

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-
+import "../globals.css";
 const StoryDetail = () => {
     const router = useRouter();
     const { id } = router.query; // Get the story ID from the URL
