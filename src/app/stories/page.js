@@ -5,16 +5,18 @@ import Link from 'next/link';
 const StoriesPage = () => {
     const [stories, setStories] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchStories = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/stories'); // Adjust the URL as needed
+                const response = await fetch('http://localhost:5000/api/stories');
                 if (!response.ok) throw new Error('Failed to fetch stories');
                 const data = await response.json();
                 setStories(data);
             } catch (error) {
-                console.error(error);
+                console.error('Error fetching stories:', error);
+                setError(error.message);
             } finally {
                 setLoading(false);
             }
@@ -23,6 +25,7 @@ const StoriesPage = () => {
     }, []);
 
     if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
 
     return (
         <div className="p-5">
