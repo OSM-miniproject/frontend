@@ -1,5 +1,58 @@
+"use client"
+
+import { useState } from 'react';
+
+
 
 const ContactUs = () => {
+
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        subject: '',
+        message: ''
+      });
+    
+    
+    const handleChange = (e) => {
+        setFormData({
+          ...formData,
+          [e.target.name]: e.target.value,
+        });
+      };
+    
+    
+      const handleSubmit = async (e) => {
+        e.preventDefault(); // Prevent page refresh
+        try {
+          // Send form data to backend API
+          const response = await fetch('http://localhost:5000/api/contact', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData),
+          });
+    
+          if (response.ok) {
+            alert('Email sent successfully');
+            // Reset form data
+            setFormData({
+              name: '',
+              email: '',
+              subject: '',
+              message: ''
+            });
+          } else {
+            alert('Failed to send email');
+          }
+        } catch (error) {
+          console.error('Error sending email:', error);
+          alert('An error occurred while sending the email');
+        }
+      };
+
+
     return (
       <div className="grid sm:grid-cols-2 items-start gap-16 p-4 mx-auto max-w-4xl bg-white font-[sans-serif]">
             <div>
@@ -64,18 +117,46 @@ const ContactUs = () => {
                 </div>
             </div>
 
-            <form className="ml-auto space-y-4">
-                <input type='text' placeholder='Name'
-                    className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
-                <input type='email' placeholder='Email'
-                    className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
-                <input type='text' placeholder='Subject'
-                    className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent" />
-                <textarea placeholder='Message' rows="6"
-                    className="w-full rounded-md px-4 bg-gray-100 text-gray-800 text-sm pt-3 outline-blue-500 focus:bg-transparent"></textarea>
-                <button type='button'
-                    className="text-white bg-blue-500 hover:bg-blue-600 tracking-wide rounded-md text-sm px-4 py-3 w-full !mt-6">Send</button>
-            </form>
+            <form className="ml-auto space-y-4" onSubmit={handleSubmit}>
+      <input
+        type='text'
+        name='name'
+        placeholder='Name'
+        value={formData.name}
+        onChange={handleChange}
+        className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent"
+      />
+      <input
+        type='email'
+        name='email'
+        placeholder='Email'
+        value={formData.email}
+        onChange={handleChange}
+        className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent"
+      />
+      <input
+        type='text'
+        name='subject'
+        placeholder='Subject'
+        value={formData.subject}
+        onChange={handleChange}
+        className="w-full rounded-md py-3 px-4 bg-gray-100 text-gray-800 text-sm outline-blue-500 focus:bg-transparent"
+      />
+      <textarea
+        name='message'
+        placeholder='Message'
+        rows="6"
+        value={formData.message}
+        onChange={handleChange}
+        className="w-full rounded-md px-4 bg-gray-100 text-gray-800 text-sm pt-3 outline-blue-500 focus:bg-transparent"
+      />
+      <button
+        type="submit"
+        className="text-white bg-blue-500 hover:bg-blue-600 tracking-wide rounded-md text-sm px-4 py-3 w-full !mt-6"
+      >
+        Send
+      </button>
+    </form>
         </div>
     );
   };
