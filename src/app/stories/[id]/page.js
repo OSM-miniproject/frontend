@@ -49,7 +49,7 @@ const StoryDetailPage = ({ params }) => {
                         story.questions.map((question, index) => (
                             <li key={index} className="border p-3 rounded">
                                 <p>{question.text}</p>
-                                <input type="text" className="mt-2 p-2 border rounded w-full" placeholder="Your " />
+                                <input type="text" className="mt-2 p-2 border rounded w-full" placeholder="Your response" />
                             </li>
                         ))
                     ) : (
