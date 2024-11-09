@@ -1,23 +1,23 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useParams } from 'next/navigation'; // Correct hook for dynamic params in app directory
+import { useParams } from 'next/navigation';
 import DisplayResult from '../../../components/DisplayResult'; // Import the DisplayResult component
 
 const StoryDetailPage = () => {
-    const { id } = useParams(); // Use useParams to get the dynamic `id` from URL
+    const { id } = useParams();
     const [story, setStory] = useState(null);
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [showResult, setShowResult] = useState(false); // To control the result display
-    const [currentChapterIndex, setCurrentChapterIndex] = useState(0); // Track current chapter
-    const [isSubmitting, setIsSubmitting] = useState(false); // To prevent submitting while navigating
+    const [result, setResult] = useState(null); // Store prediction result here
+    const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
+    const [isSubmitting, setIsSubmitting] = useState(false);
 
     useEffect(() => {
         const fetchStory = async () => {
             try {
-                const response = await fetch(`http://localhost:5000/api/stories/${id}`);
+                const response = await fetch(`http://localhost:7000/api/stories/${id}`);
                 if (!response.ok) throw new Error('Failed to fetch story');
                 const data = await response.json();
                 setStory(data);
@@ -38,10 +38,38 @@ const StoryDetailPage = () => {
         }));
     };
 
-    const handleSubmit = () => {
-        setIsSubmitting(true); // Disable navigation while submitting
-        setShowResult(true); // Show the result after submitting
+    const handleSubmit = async () => {
+        setIsSubmitting(true);
+        setResult(null); // Reset result on each submission attempt
+    
+        try {
+            const inputData = {
+                Age: 25,  // Replace with actual data or input
+                Gender: 'Female',  // Replace with actual data or input
+                AnxietyDiagnosis: answers['question1'] === 'Yes' ? 1 : (answers['question1'] === 'No' ? 0 : 2),
+                CompulsionType: answers['question2'] === 'Yes' ? 1 : (answers['question2'] === 'No' ? 0 : 2),
+                // Add mappings for all necessary questions here
+            };
+    
+            console.log('Sending inputData:', inputData); // Log to verify structure
+    
+            const response = await fetch('http://localhost:5000/api/predict', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ answers: inputData })  // Send the full input data
+            });
+    
+            if (!response.ok) throw new Error('Failed to submit answers for prediction');
+            const data = await response.json();
+            setResult(data.prediction);  // Store prediction result in result state
+        } catch (error) {
+            console.error('Error submitting answers:', error);
+            setError(error.message);
+        } finally {
+            setIsSubmitting(false);
+        }
     };
+    
 
     const handleNext = () => {
         if (currentChapterIndex < story.chapters.length - 1) {
@@ -60,19 +88,17 @@ const StoryDetailPage = () => {
 
     const currentChapter = story?.chapters?.[currentChapterIndex];
 
-    // Render the result component only when the user submits
-    if (showResult) {
-        return <DisplayResult answers={answers} story={story} />;
+    // Show result if we have one
+    if (result !== null) {
+        return <DisplayResult result={result} answers={answers} />;
     }
 
-    // Calculate progress as a percentage
     const progress = ((currentChapterIndex + 1) / story?.chapters?.length) * 100;
 
     return (
         <div className="p-5">
             <h1 className="text-3xl font-bold mb-5">{story?.title}</h1>
             <div>
-                {/* Progress Bar */}
                 <div className="h-2 bg-gray-300 rounded-full mt-4">
                     <div
                         className="h-full bg-blue-500 rounded-full"
@@ -80,12 +106,10 @@ const StoryDetailPage = () => {
                     ></div>
                 </div>
 
-                {/* Display current chapter */}
                 <div className="mt-5">
                     <h3 className="text-lg font-semibold">{currentChapter?.chapterTitle}</h3>
                     <p>{currentChapter?.content}</p>
 
-                    {/* Render the questions for the current chapter */}
                     <div className="mt-5">
                         <h3 className="text-lg font-bold">Questions</h3>
                         {currentChapter?.questions.map((question, index) => (
@@ -110,7 +134,6 @@ const StoryDetailPage = () => {
                     </div>
                 </div>
 
-                {/* Navigation Buttons */}
                 <div className="mt-5 flex justify-between">
                     <button
                         className="px-6 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
@@ -123,6 +146,7 @@ const StoryDetailPage = () => {
                         <button
                             className="px-6 py-3 bg-green-500 text-white rounded"
                             onClick={handleSubmit}
+                            disabled={isSubmitting}
                         >
                             Submit
                         </button>
@@ -130,6 +154,7 @@ const StoryDetailPage = () => {
                         <button
                             className="px-6 py-2 bg-blue-500 text-white rounded"
                             onClick={handleNext}
+                            disabled={isSubmitting}
                         >
                             Next
                         </button>

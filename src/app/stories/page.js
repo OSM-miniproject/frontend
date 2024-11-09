@@ -11,7 +11,7 @@ const StoriesPage = () => {
     useEffect(() => {
         const fetchStories = async () => {
             try {
-                const response = await fetch('http://localhost:5000/api/stories');
+                const response = await fetch('http://localhost:7000/api/stories');
                 if (!response.ok) throw new Error('Failed to fetch stories');
                 const data = await response.json();
                 setStories(data);
