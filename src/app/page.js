@@ -10,9 +10,6 @@ import "./globals.css";
 export default function Home() {
   return (
     <div>
-      <section id="navbar">
-        <Navbar />
-      </section>
       <section id="home">
         <Hero />
       </section>

@@ -1,8 +1,10 @@
-// app/authenticate/page.js
 'use client';
-import { useState } from 'react';
-import { signInWithPopup } from 'firebase/auth';
+import { useState, useEffect } from 'react';
+import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, googleProvider } from '../../../lib/firebaseconfig';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import "../globals.css";
 
 const AuthForm = ({ 
@@ -12,15 +14,70 @@ const AuthForm = ({
 }) => {
   const [isRightPanelActive, setIsRightPanelActive] = useState(false);
   const [isMobileSignUp, setIsMobileSignUp] = useState(false);
+  const [user, setUser] = useState(null);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const router = useRouter();
 
+  // Google Sign-In
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log('User info:', result.user); // User is successfully signed in
+      setUser(result.user);
+      toast.success('Signed in with Google successfully!');
+      router.push('/profile');
     } catch (error) {
-      console.error('Error during Google sign-in:', error);
+      console.error('Google Sign-in error:', error);
+      toast.error('Google Sign-in failed.');
     }
   };
+
+  // Email Sign-Up
+  const handleEmailSignUp = async () => {
+    try {
+      const result = await createUserWithEmailAndPassword(auth, email, password);
+      setUser(result.user);
+      toast.success('Account created successfully!');
+      setIsRightPanelActive(false); // Switch to sign-in
+    } catch (error) {
+      console.error('Sign-up error:', error);
+      toast.error('Sign-up failed. Please try again.');
+    }
+  };
+
+  // Email Sign-In
+  const handleEmailSignIn = async () => {
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      setUser(result.user);
+      toast.success('Signed in successfully!');
+      router.push('/profile');
+    } catch (error) {
+      console.error('Sign-in error:', error);
+      toast.error('Sign-in failed. Please check your credentials.');
+    }
+  };
+
+  // Sign-Out
+  const handleSignOut = async () => {
+    try {
+      await signOut(auth);
+      setUser(null);
+      toast.info('Signed out successfully!');
+    } catch (error) {
+      console.error('Sign-out error:', error);
+      toast.error('Sign-out failed. Please try again.');
+    }
+  };
+
+  // Authentication status tracking
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      setUser(user);
+      if (user) router.push('/profile');
+    });
+    return () => unsubscribe();
+  }, [router]);
 
   return (
     <>
@@ -28,7 +85,7 @@ const AuthForm = ({
         href={`https://fonts.googleapis.com/css2?family=${customFont.replace(' ', '+')}:wght@400;600;700&display=swap`}
         rel="stylesheet"
       />
-      
+
       <div className={`min-h-screen flex flex-col items-center justify-center bg-[#f6f5f7] px-4 font-[${customFont}]`}>
         <button 
           className="md:hidden mb-4 rounded-[20px] border border-[#FF4B2B] bg-[#FF4B2B] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider transition-transform duration-80 ease-in hover:opacity-90"
@@ -41,22 +98,18 @@ const AuthForm = ({
           
           {/* Sign Up Container */}
           <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-full md:w-1/2 ${isRightPanelActive || isMobileSignUp ? 'opacity-100 z-10 translate-x-0 md:translate-x-full' : 'opacity-0 z-0'}`}>
-            <form className="bg-white flex items-center justify-center flex-col px-6 md:px-12 h-full text-center">
+            <form onSubmit={(e) => e.preventDefault()} className="bg-white flex items-center justify-center flex-col px-6 md:px-12 h-full text-center">
               <h1 className="font-bold text-2xl mb-4">Create Account</h1>
               <div className="my-5 flex gap-4">
-                {/* Google Sign Up */}
-                <button
-                  onClick={handleGoogleSignIn}
-                  className="border border-[#DDDDDD] rounded-full inline-flex justify-center items-center h-10 w-10 hover:bg-gray-50 transition-colors"
-                >
-                  <i className="fab fa-google"></i>
+                <button onClick={handleGoogleSignIn} className="border border-[#DDDDDD] rounded-full inline-flex justify-center items-center h-10 w-10 hover:bg-gray-50 transition-colors">
+                  <img src="https://res.cloudinary.com/domzgxu5n/image/upload/v1731131233/dgjxeu7e6c9dasfdhvjn.svg" alt="Google Logo" className="h-6 w-6" />
                 </button>
               </div>
               <span className="text-xs mb-4">or use your email for registration</span>
               <input type="text" placeholder="Name" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" />
-              <input type="email" placeholder="Email" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" />
-              <input type="password" placeholder="Password" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" />
-              <button className="mt-4 rounded-[20px] border border-[#FF4B2B] bg-[#FF4B2B] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider">
+              <input type="email" placeholder="Email" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" onChange={(e) => setEmail(e.target.value)} />
+              <input type="password" placeholder="Password" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" onChange={(e) => setPassword(e.target.value)} />
+              <button onClick={handleEmailSignUp} className="mt-4 rounded-[20px] border border-[#FF4B2B] bg-[#FF4B2B] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider">
                 Sign Up
               </button>
             </form>
@@ -64,53 +117,48 @@ const AuthForm = ({
 
           {/* Sign In Container */}
           <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-full md:w-1/2 ${isRightPanelActive || isMobileSignUp ? 'opacity-0 z-0 md:translate-x-full' : 'opacity-100 z-10'}`}>
-            <form className="bg-white flex items-center justify-center flex-col px-6 md:px-12 h-full text-center">
+            <form onSubmit={(e) => e.preventDefault()} className="bg-white flex items-center justify-center flex-col px-6 md:px-12 h-full text-center">
               <h1 className="font-bold text-2xl mb-4">Sign in</h1>
               <div className="my-5 flex gap-4">
-                {/* Google Sign In */}
-                <button
-                  onClick={handleGoogleSignIn}
-                  className="border border-[#DDDDDD] rounded-full inline-flex justify-center items-center h-10 w-10 hover:bg-gray-50 transition-colors"
-                >
-                  <i className="fab fa-google"></i>
+                <button onClick={handleGoogleSignIn} className="border border-[#DDDDDD] rounded-full inline-flex justify-center items-center h-10 w-10 hover:bg-gray-50 transition-colors">
+                  <img src="https://res.cloudinary.com/domzgxu5n/image/upload/v1731131233/dgjxeu7e6c9dasfdhvjn.svg" alt="Google Logo" className="h-6 w-6" />
                 </button>
               </div>
               <span className="text-xs mb-4">or use your account</span>
-              <input type="email" placeholder="Email" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" />
-              <input type="password" placeholder="Password" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" />
+              <input type="email" placeholder="Email" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" onChange={(e) => setEmail(e.target.value)} />
+              <input type="password" placeholder="Password" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" onChange={(e) => setPassword(e.target.value)} />
               <a href="#" className="text-sm text-[#333] no-underline my-4 hover:text-[#FF4B2B]">Forgot your password?</a>
-              <button className="rounded-[20px] border border-[#FF4B2B] bg-[#FF4B2B] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider">
+              <button onClick={handleEmailSignIn} className="rounded-[20px] border border-[#FF4B2B] bg-[#FF4B2B] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider">
                 Sign In
               </button>
+              
+              {/* Link to toggle to Sign Up */}
+              <p className="mt-4 text-xs">
+                Haven't registered yet?{' '}
+                <span onClick={() => setIsRightPanelActive(true)} className="text-[#FF4B2B] cursor-pointer font-semibold hover:underline">
+                  Sign up
+                </span>
+              </p>
             </form>
           </div>
 
-          {/* Overlay Container - Hidden on Mobile */}
+          {/* Overlay Container */}
           <div className={`hidden md:block absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform duration-600 ease-in-out z-20 ${isRightPanelActive ? '-translate-x-full' : ''}`}>
             <div className={`bg-gradient-to-r from-[#FF4B2B] to-[#FF416C] text-white relative -left-full h-full w-[200%] transform transition-transform duration-600 ease-in-out ${isRightPanelActive ? 'translate-x-1/2' : 'translate-x-0'}`}>
-              {showSignInOverlay && (
-                <div className={`absolute flex items-center justify-center flex-col px-10 text-center top-0 h-full w-1/2 -translate-x-[20%] transition-transform duration-600 ease-in-out ${isRightPanelActive ? 'translate-x-0' : ''}`}>
-                  <h1 className="font-bold text-3xl mb-4">Welcome Back!</h1>
-                  <p className="text-sm font-light leading-5 tracking-wider my-5">
-                    To keep connected with us please login with your personal info
-                  </p>
-                  <button className="rounded-[20px] border border-white bg-transparent text-white text-xs font-bold py-3 px-11 uppercase tracking-wider" onClick={() => setIsRightPanelActive(false)}>
-                    Sign In
-                  </button>
-                </div>
-              )}
-
-              {showSignUpOverlay && (
-                <div className={`absolute flex items-center justify-center flex-col px-10 text-center top-0 h-full w-1/2 right-0 transition-transform duration-600 ease-in-out ${isRightPanelActive ? 'translate-x-[20%]' : 'translate-x-0'}`}>
-                  <h1 className="font-bold text-3xl mb-4">Hello, Friend!</h1>
-                  <p className="text-sm font-light leading-5 tracking-wider my-5">
-                    Enter your personal details and start journey with us
-                  </p>
-                  <button className="rounded-[20px] border border-white bg-transparent text-white text-xs font-bold py-3 px-11 uppercase tracking-wider" onClick={() => setIsRightPanelActive(true)}>
-                    Sign Up
-                  </button>
-                </div>
-              )}
+              <div className={`absolute top-0 left-0 flex items-center justify-center flex-col w-1/2 h-full px-12 text-center ${isRightPanelActive ? 'translate-x-0' : '-translate-x-full'}`}>
+                <h1 className="font-bold text-2xl">Welcome Back!</h1>
+                <p className="mt-4 mb-6 text-xs">To keep connected with us please login with your personal info</p>
+                <button onClick={() => setIsRightPanelActive(false)} className="rounded-[20px] border border-white bg-transparent text-white text-xs font-bold py-3 px-11 uppercase tracking-wider hover:bg-white hover:text-[#FF4B2B]">
+                  Sign In
+                </button>
+              </div>
+              <div className={`absolute top-0 left-1/2 flex items-center justify-center flex-col w-1/2 h-full px-12 text-center ${isRightPanelActive ? 'translate-x-full' : 'translate-x-0'}`}>
+                <h1 className="font-bold text-2xl">Hello, Friend!</h1>
+                <p className="mt-4 mb-6 text-xs">Enter your personal details and start your journey with us</p>
+                <button onClick={() => setIsRightPanelActive(true)} className="rounded-[20px] border border-white bg-transparent text-white text-xs font-bold py-3 px-11 uppercase tracking-wider hover:bg-white hover:text-[#FF4B2B]">
+                  Sign Up
+                </button>
+              </div>
             </div>
           </div>
         </div>
