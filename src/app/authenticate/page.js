@@ -17,6 +17,7 @@ const AuthForm = ({
   const [user, setUser] = useState(null);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [hasJustSignedUp, setHasJustSignedUp] = useState(false);
   const router = useRouter();
 
   // Google Sign-In
@@ -32,18 +33,27 @@ const AuthForm = ({
     }
   };
 
-  // Email Sign-Up
-  const handleEmailSignUp = async () => {
-    try {
-      const result = await createUserWithEmailAndPassword(auth, email, password);
-      setUser(result.user);
-      toast.success('Account created successfully!');
-      setIsRightPanelActive(false); // Switch to sign-in
-    } catch (error) {
-      console.error('Sign-up error:', error);
-      toast.error('Sign-up failed. Please try again.');
-    }
-  };
+// Modify Email Sign-Up function
+const handleEmailSignUp = async () => {
+  try {
+    await createUserWithEmailAndPassword(auth, email, password);
+    toast.success('Account created successfully!');
+    
+    // Sign out immediately after account creation
+    await signOut(auth);
+    
+    // Set the panel to show the sign-in form
+    setIsRightPanelActive(false); 
+    
+    // Optionally clear the email and password fields
+    setEmail('');
+    setPassword('');
+  } catch (error) {
+    console.error('Sign-up error:', error);
+    toast.error('Sign-up failed. Please try again.');
+  }
+};
+
 
   // Email Password Reset
 const handlePasswordReset = async () => {
@@ -83,14 +93,30 @@ const handlePasswordReset = async () => {
     }
   };
 
-  // Authentication status tracking
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged((user) => {
-      setUser(user);
-      if (user) router.push('/profile');
-    });
-    return () => unsubscribe();
-  }, [router]);
+ // Inside AuthForm component
+useEffect(() => {
+  const unsubscribe = auth.onAuthStateChanged((user) => {
+    setUser(user);
+
+    // Only redirect to profile if not just signed up and the user is authenticated
+    if (user && !hasJustSignedUp && !isRightPanelActive) {
+      router.push('/profile');
+    }
+
+    // If just signed up, keep the user on the sign-in form
+    if (hasJustSignedUp && !isRightPanelActive) {
+      setHasJustSignedUp(false); // Reset after showing the sign-in form
+    }
+  });
+  return () => unsubscribe();
+}, [router, hasJustSignedUp, isRightPanelActive]);
+
+
+const handleKeyDown = (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+  }
+};
 
   return (
     <>
@@ -111,7 +137,7 @@ const handlePasswordReset = async () => {
           
           {/* Sign Up Container */}
           <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-full md:w-1/2 ${isRightPanelActive || isMobileSignUp ? 'opacity-100 z-10 translate-x-0 md:translate-x-full' : 'opacity-0 z-0'}`}>
-            <form onSubmit={(e) => e.preventDefault()} className="bg-white flex items-center justify-center flex-col px-6 md:px-12 h-full text-center">
+            <form onSubmit={(e) => e.preventDefault()} onKeyDown={handleKeyDown} className="bg-white flex items-center justify-center flex-col px-6 md:px-12 h-full text-center">
               <h1 className="font-bold text-2xl mb-4">Create Account</h1>
               <div className="my-5 flex gap-4">
                 <button onClick={handleGoogleSignIn} className="border border-[#DDDDDD] rounded-full inline-flex justify-center items-center h-10 w-10 hover:bg-gray-50 transition-colors">
@@ -130,7 +156,7 @@ const handlePasswordReset = async () => {
 
           {/* Sign In Container */}
           <div className={`absolute top-0 h-full transition-all duration-600 ease-in-out left-0 w-full md:w-1/2 ${isRightPanelActive || isMobileSignUp ? 'opacity-0 z-0 md:translate-x-full' : 'opacity-100 z-10'}`}>
-            <form onSubmit={(e) => e.preventDefault()} className="bg-white flex items-center justify-center flex-col px-6 md:px-12 h-full text-center">
+            <form onSubmit={(e) => e.preventDefault()} onKeyDown={handleKeyDown} className="bg-white flex items-center justify-center flex-col px-6 md:px-12 h-full text-center">
               <h1 className="font-bold text-2xl mb-4">Sign in</h1>
               <div className="my-5 flex gap-4">
                 <button onClick={handleGoogleSignIn} className="border border-[#DDDDDD] rounded-full inline-flex justify-center items-center h-10 w-10 hover:bg-gray-50 transition-colors">
