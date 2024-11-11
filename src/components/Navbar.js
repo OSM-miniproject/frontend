@@ -7,7 +7,7 @@ import { auth } from '../../lib/firebaseconfig'; // Import Firebase auth
 
 const Navbar = () => {
   const [user, setUser] = useState(null); 
-  const [isLoading, setIsLoading] = useState(false); 
+  const [isLoading, setIsLoading] = useState(true); // Changed to `true` for better initial state management
   const router = useRouter();
 
   useEffect(() => {
@@ -41,12 +41,26 @@ const Navbar = () => {
     }
   };
 
+  const handleSectionScroll = (sectionId) => {
+    const isHomePage = router.pathname === '/';
+    if (isHomePage) {
+      // Scroll smoothly if already on the home page
+      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      // First navigate to home, then scroll
+      router.push('/');
+      setTimeout(() => {
+        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      }, 500); // Delay to ensure the page has loaded before scrolling
+    }
+  };
+
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>; // You might want to replace this with a loading spinner or animation.
   }
 
   return (
-    <section className="w-full px-8 sticky top-0 z-50 text-[#1E2D3D] bg-[#FFFFFF]">
+    <section className="w-full px-8 sticky top-0 z-50 text-[#1E2D3D] bg-[#FFFFFF] bg-opacity-50 backdrop-blur-md">
       <div className="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
         <div className="relative flex flex-col md:flex-row">
           <a 
@@ -58,12 +72,7 @@ const Navbar = () => {
           </a>
 
           <nav className="flex flex-wrap items-center md:ml-8">
-            <a 
-              onClick={() => router.push('/assessments')} 
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
-            >
-              Assessments
-            </a>
+            {/* Removed Assessments Link */}
           </nav>
         </div>
 
@@ -76,15 +85,13 @@ const Navbar = () => {
               Home
             </a>
             <a
-              href="#about" 
-              onClick={() => document.getElementById('about').scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => handleSectionScroll('about')} // Smooth scroll to About section
               className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
             >
               About
             </a>
             <a
-              href="#faqs" 
-              onClick={() => document.getElementById('faqs').scrollIntoView({ behavior: 'smooth' })}
+              onClick={() => handleSectionScroll('faqs')} // Smooth scroll to FAQs section
               className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
             >
               FaQs
@@ -102,14 +109,14 @@ const Navbar = () => {
           {user ? (
             <a 
               onClick={handleLogout} 
-              className="text-base font-medium leading-6 text-[#1E2D3D] whitespace-no-wrap transition duration-150 ease-in-out hover:text-[#006D77] cursor-pointer"
+              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#006D77] hover:bg-[#004F57] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
             >
               Log Out
             </a>
           ) : (
             <a 
               onClick={handleLogin} 
-              className="text-base font-medium leading-6 text-[#1E2D3D] whitespace-no-wrap transition duration-150 ease-in-out hover:text-[#006D77] cursor-pointer"
+              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#3ABEFF] hover:bg-[#1E90FF] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
             >
               Log In
             </a>
