@@ -26,7 +26,7 @@ const ContactUs = () => {
         e.preventDefault(); // Prevent page refresh
         try {
           // Send form data to backend API
-          const response = await fetch('http://localhost:5000/api/contact', {
+          const response = await fetch('http://localhost:7000/api/contact', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

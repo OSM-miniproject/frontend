@@ -72,8 +72,7 @@ const WhatIsOCD = () => {
       description: "Many feel that OCD will prevent them from living a fulfilling life, but with treatment, improvement is possible.",
       solution: "Set realistic goals for yourself and celebrate small achievements in your journey to recovery."
     },
-];
-
+  ];
 
   const openModal = (lie) => {
     setSelectedLie(lie);
@@ -91,6 +90,46 @@ const WhatIsOCD = () => {
       <p className="mb-8 text-center max-w-2xl">
         Obsessive-Compulsive Disorder (OCD) is a mental health condition characterized by intrusive thoughts (obsessions) and repetitive behaviors (compulsions). It can make you believe certain lies about yourself. Here are some common misconceptions:
       </p>
+
+      {/* Video Section */}
+      <h2 className="text-3xl font-bold mt-10 mb-6 text-center">Learn More About OCD</h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-5xl mb-10">
+        <div className="aspect-w-16 aspect-h-9">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/-Zg6PEJHRoo?si=XYmvJS4aANge3_kJ"
+            title="OCD: Signs and Symptoms"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+        <div className="aspect-w-16 aspect-h-9">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/I8Jofzx_8p4?si=ZQO-51MjhyIm3qTR"
+            title="OCD: Causes, Symptoms, Pathology"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+        <div className="aspect-w-16 aspect-h-9">
+          <iframe
+            width="100%"
+            height="100%"
+            src="https://www.youtube.com/embed/dQXx_2rFPzQ?si=5t5wniUE2uk1fgMA"
+            title="OCD: What Causes OCD?"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
+
+      {/* OCD Lies Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {ocdLies.map((lie) => (
           <div

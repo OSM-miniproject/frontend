@@ -7,7 +7,7 @@ import { auth } from '../../lib/firebaseconfig'; // Import Firebase auth
 
 const Navbar = () => {
   const [user, setUser] = useState(null); 
-  const [isLoading, setIsLoading] = useState(true); 
+  const [isLoading, setIsLoading] = useState(false); 
   const router = useRouter();
 
   useEffect(() => {
