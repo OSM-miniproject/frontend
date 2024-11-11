@@ -18,9 +18,9 @@ export default function Home() {
         <About />
       </section>
 
-      <section id="testimonials">
+      {/* <section id="testimonials">
         <Testimonials reviews={reviews} />
-      </section>
+      </section> */}
 
       <section id="faqs">
         <Faqs />

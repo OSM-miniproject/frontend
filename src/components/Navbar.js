@@ -70,13 +70,18 @@ const Navbar = () => {
     <section className="w-full px-8 sticky top-0 z-50 text-[#1E2D3D] bg-[#FFFFFF] bg-opacity-50 backdrop-blur-md">
       <div className="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
         <div className="relative flex flex-col md:flex-row">
-          <a 
-            href="#_" 
-            onClick={handleHomeClick}
-            className="flex items-center mb-5 font-medium text-[#1E2D3D] lg:w-auto lg:items-center lg:justify-center md:mb-0 cursor-pointer"
-          >
-            <span className="mx-auto text-xl font-black leading-none text-[#1E2D3D] select-none">OCD<span className="text-[#3ABEFF]">.</span></span>
-          </a>
+        <a 
+  href="#_" 
+  onClick={handleHomeClick}
+  className="flex items-center mb-5 font-medium text-[#1E2D3D] lg:w-auto lg:items-center lg:justify-center md:mb-0 cursor-pointer"
+>
+  <img 
+    src="https://res.cloudinary.com/domzgxu5n/image/upload/v1731336066/unqw15uxvaudyeopgasq.png" 
+    alt="OCD Logo" 
+    className="h-10 w-auto" 
+  />
+</a>
+
 
           <nav className="flex flex-wrap items-center md:ml-8">
             {/* Removed Assessments Link */}

@@ -1,6 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword, sendPasswordResetEmail } from 'firebase/auth';
+import { signInWithPopup, signOut, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
 import { auth, googleProvider } from '../../../lib/firebaseconfig';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
