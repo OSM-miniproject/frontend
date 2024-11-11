@@ -1,11 +1,15 @@
-"use client"
+"use client";
 import { useRouter } from 'next/navigation';
 
 const Hero = () => {
   const router = useRouter();
 
   const handleButtonClick = () => {
-    router.push('/assessments');  
+    router.push('/assessments');  // Keeps this functionality the same
+  };
+
+  const handleLearnMoreClick = () => {
+    router.push('/resources');  // Navigates to resources page
   };
 
   return (
@@ -42,8 +46,8 @@ const Hero = () => {
                   </svg>
                 </button>
                 <a
-                  href="#_"
-                  className="flex items-center px-6 py-3 text-gray-500 bg-gray-100 rounded-md hover:bg-gray-200 hover:text-gray-600"
+                  onClick={handleLearnMoreClick}  // Now uses the router.push for navigation
+                  className="flex items-center px-6 py-3 text-gray-500 bg-gray-100 rounded-md hover:bg-gray-200 hover:text-gray-600 cursor-pointer"
                 >
                   Learn More
                 </a>
@@ -52,7 +56,7 @@ const Hero = () => {
           </div>
           <div className="w-full md:w-1/2">
             <div className="w-full h-auto overflow-hidden rounded-md shadow-xl sm:rounded-xl">
-              <img src="https://res.cloudinary.com/domzgxu5n/image/upload/v1729228387/v6sfu2jqk1acdab5zlay.jpg" />
+              <img src="https://res.cloudinary.com/domzgxu5n/image/upload/v1729228387/v6sfu2jqk1acdab5zlay.jpg" alt="Hero Image" />
             </div>
           </div>
         </div>
