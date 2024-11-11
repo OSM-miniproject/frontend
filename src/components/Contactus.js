@@ -73,7 +73,7 @@ const ContactUs = () => {
                             </div>
                             <a href="javascript:void(0)" className="text-[#007bff] text-sm ml-4">
                                 <small className="block">Mail</small>
-                                <strong>info@example.com</strong>
+                                <strong>kulkarniom7057@gmail.com</strong>
                             </a>
                         </li>
                     </ul>
@@ -84,7 +84,7 @@ const ContactUs = () => {
 
                     <ul className="flex mt-4 space-x-4">
                         <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
+                            <a href="https://www.facebook.com/profile.php?id=100087844884329">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                                     viewBox="0 0 24 24">
                                     <path
@@ -94,7 +94,7 @@ const ContactUs = () => {
                             </a>
                         </li>
                         <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
+                            <a href="https://www.linkedin.com/in/om-kulkarni-460819250/">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                                     viewBox="0 0 511 512">
                                     <path
@@ -104,7 +104,7 @@ const ContactUs = () => {
                             </a>
                         </li>
                         <li className="bg-[#e6e6e6cf] h-10 w-10 rounded-full flex items-center justify-center shrink-0">
-                            <a href="javascript:void(0)">
+                            <a href="https://www.instagram.com/om_.1374/?hl=en">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20px" height="20px" fill='#007bff'
                                     viewBox="0 0 24 24">
                                     <path
