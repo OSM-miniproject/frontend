@@ -34,7 +34,8 @@ const StoriesPage = () => {
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-5">
                 {stories.map((story) => (
                     <div key={story._id} className="border p-4 rounded-lg shadow">
-                        <h2 className="text-xl font-semibold">{story.title}</h2>
+                        <img src={story.imageUrl} alt={story.title} className="w-full h-64 object-cover rounded-md" />
+                        <h2 className="text-xl font-semibold mt-3">{story.title}</h2>
                         <Link href={`/stories/${story._id}`}>
                             <button className="mt-3 bg-blue-500 text-white px-4 py-2 rounded">
                                 Read More

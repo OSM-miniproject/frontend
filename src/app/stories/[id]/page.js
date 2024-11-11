@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
-import DisplayResult from '../../../components/DisplayResult'; // Import the DisplayResult component
+import DisplayResult from '../../../components/DisplayResult';
 
 const StoryDetailPage = () => {
     const { id } = useParams();
@@ -10,7 +10,7 @@ const StoryDetailPage = () => {
     const [answers, setAnswers] = useState({});
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [result, setResult] = useState(null); // Store prediction result here
+    const [result, setResult] = useState(null);
     const [currentChapterIndex, setCurrentChapterIndex] = useState(0);
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -40,28 +40,27 @@ const StoryDetailPage = () => {
 
     const handleSubmit = async () => {
         setIsSubmitting(true);
-        setResult(null); // Reset result on each submission attempt
-    
+        setResult(null);
+
         try {
             const inputData = {
                 Age: 25,  // Replace with actual data or input
                 Gender: 'Female',  // Replace with actual data or input
                 AnxietyDiagnosis: answers['question1'] === 'Yes' ? 1 : (answers['question1'] === 'No' ? 0 : 2),
                 CompulsionType: answers['question2'] === 'Yes' ? 1 : (answers['question2'] === 'No' ? 0 : 2),
-                // Add mappings for all necessary questions here
             };
-    
-            console.log('Sending inputData:', inputData); // Log to verify structure
-    
+
+            console.log('Sending inputData:', inputData);
+
             const response = await fetch('http://localhost:5000/api/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ answers: inputData })  // Send the full input data
+                body: JSON.stringify({ answers: inputData })
             });
-    
+
             if (!response.ok) throw new Error('Failed to submit answers for prediction');
             const data = await response.json();
-            setResult(data.prediction);  // Store prediction result in result state
+            setResult(data.prediction);
         } catch (error) {
             console.error('Error submitting answers:', error);
             setError(error.message);
@@ -69,7 +68,6 @@ const StoryDetailPage = () => {
             setIsSubmitting(false);
         }
     };
-    
 
     const handleNext = () => {
         if (currentChapterIndex < story.chapters.length - 1) {
@@ -88,7 +86,6 @@ const StoryDetailPage = () => {
 
     const currentChapter = story?.chapters?.[currentChapterIndex];
 
-    // Show result if we have one
     if (result !== null) {
         return <DisplayResult result={result} answers={answers} />;
     }
@@ -152,17 +149,18 @@ const StoryDetailPage = () => {
                         </button>
                     ) : (
                         <button
-                            className="px-6 py-2 bg-blue-500 text-white rounded"
-                            onClick={handleNext}
-                            disabled={isSubmitting}
-                        >
-                            Next
-                        </button>
-                    )}
-                </div>
+                        className="px-6 py-3 bg-blue-500 text-white rounded"
+                        onClick={handleNext}
+                        disabled={isSubmitting}
+                    >
+                        Next
+                    </button>
+                )}
             </div>
         </div>
-    );
+    </div>
+);
 };
 
 export default StoryDetailPage;
+
