@@ -11,23 +11,22 @@ const AssessmentPage = () => {
     age: '',
     personality: '',
     handedness: '',
-    illnessFear: 0,
-    deathFear: 0,
-    nightStartled: 0,
-    sleepHours: 0,
-    hoarding: 0,
-    repetitiveActions: 0,
-    sequenceRestless: 0,
-    avoidTouch: 0,
-    thoughtControl: 0,
-    checkThings: 0,
-    itemsArranged: 0,
-    handWashing: 0,
-    engrossedThoughts: 0,
-    checkingGas: 0,
-    repulsiveThoughts: 0
+    illnessFear: 1,
+    deathFear: 1,
+    nightStartled: 1,
+    sleepHours: 1,
+    hoarding: 1,
+    repetitiveActions: 1,
+    sequenceRestless: 1,
+    avoidTouch: 1,
+    thoughtControl: 1,
+    checkThings: 1,
+    itemsArranged: 1,
+    handWashing: 1,
+    engrossedThoughts: 1,
+    checkingGas: 1,
+    repulsiveThoughts: 1
   });
-
 
   const router = useRouter();
 
@@ -68,13 +67,17 @@ const AssessmentPage = () => {
     }
   };
   
+
   
+  
+  
+
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-6 py-8 max-w-3xl border border-gray-300 shadow-lg bg-gray-50">
       <h1 className="text-3xl font-bold mb-6">Basic Questionnaire</h1>
       <form onSubmit={handleSubmit}>
         {/* Gender */}
-        <label className="block mb-4">
+        <label className="block mb-8">
           Gender:
           <select
             name="gender"
@@ -90,19 +93,19 @@ const AssessmentPage = () => {
         </label>
 
         {/* Age */}
-        <label className="block mb-4">
+        <label className="block mb-8">
           Age:
           <input
             type="number"
             name="age"
             value={formData.age}
             onChange={handleInputChange}
-            className="block w-full mt-1"
+            className="block w-full mt-1 appearance-none border"
           />
         </label>
 
         {/* Personality */}
-        <label className="block mb-4">
+        <label className="block mb-8">
           Personality:
           <select
             name="personality"
@@ -118,7 +121,7 @@ const AssessmentPage = () => {
         </label>
 
         {/* Handedness */}
-        <label className="block mb-4">
+        <label className="block mb-8">
           Handedness:
           <select
             name="handedness"
@@ -133,12 +136,12 @@ const AssessmentPage = () => {
         </label>
 
         {/* OCD-related questions */}
-        <label className="block mb-4">
+        <label className="block mb-8">
           I constantly fear that I will develop a serious illness.
           <input
             type="range"
             name="illnessFear"
-            min="0"
+            min="1"
             max="5"
             value={formData.illnessFear}
             onChange={handleInputChange}
@@ -146,12 +149,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I constantly fear death.
           <input
             type="range"
             name="deathFear"
-            min="0"
+            min="1"
             max="5"
             value={formData.deathFear}
             onChange={handleInputChange}
@@ -159,12 +162,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I wake up startled at night.
           <input
             type="range"
             name="nightStartled"
-            min="0"
+            min="1"
             max="5"
             value={formData.nightStartled}
             onChange={handleInputChange}
@@ -172,12 +175,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I get a full 7-8 hours of sleep.
           <input
             type="range"
             name="sleepHours"
-            min="0"
+            min="1"
             max="5"
             value={formData.sleepHours}
             onChange={handleInputChange}
@@ -185,12 +188,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I have a habit of hoarding unnecessary items.
           <input
             type="range"
             name="hoarding"
-            min="0"
+            min="1"
             max="5"
             value={formData.hoarding}
             onChange={handleInputChange}
@@ -198,12 +201,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I repeatedly perform one or more actions for a long time.
           <input
             type="range"
             name="repetitiveActions"
-            min="0"
+            min="1"
             max="5"
             value={formData.repetitiveActions}
             onChange={handleInputChange}
@@ -211,12 +214,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           The sequence of actions is fixed. If it doesn’t happen that way, I get restless.
           <input
             type="range"
             name="sequenceRestless"
-            min="0"
+            min="1"
             max="5"
             value={formData.sequenceRestless}
             onChange={handleInputChange}
@@ -224,12 +227,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I avoid touching certain objects because I feel they are dirty.
           <input
             type="range"
             name="avoidTouch"
-            min="0"
+            min="1"
             max="5"
             value={formData.avoidTouch}
             onChange={handleInputChange}
@@ -237,12 +240,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I feel the need to control my thoughts to avoid unwanted ones.
           <input
             type="range"
             name="thoughtControl"
-            min="0"
+            min="1"
             max="5"
             value={formData.thoughtControl}
             onChange={handleInputChange}
@@ -250,12 +253,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I often check things repeatedly (e.g., doors, locks, etc.).
           <input
             type="range"
             name="checkThings"
-            min="0"
+            min="1"
             max="5"
             value={formData.checkThings}
             onChange={handleInputChange}
@@ -263,12 +266,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I like to arrange items in a specific order or pattern.
           <input
             type="range"
             name="itemsArranged"
-            min="0"
+            min="1"
             max="5"
             value={formData.itemsArranged}
             onChange={handleInputChange}
@@ -276,12 +279,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I wash my hands excessively to avoid contamination.
           <input
             type="range"
             name="handWashing"
-            min="0"
+            min="1"
             max="5"
             value={formData.handWashing}
             onChange={handleInputChange}
@@ -289,12 +292,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I get lost in my thoughts for long periods.
           <input
             type="range"
             name="engrossedThoughts"
-            min="0"
+            min="1"
             max="5"
             value={formData.engrossedThoughts}
             onChange={handleInputChange}
@@ -302,12 +305,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I frequently check if the gas is turned off.
           <input
             type="range"
             name="checkingGas"
-            min="0"
+            min="1"
             max="5"
             value={formData.checkingGas}
             onChange={handleInputChange}
@@ -315,12 +318,12 @@ const AssessmentPage = () => {
           />
         </label>
 
-        <label className="block mb-4">
+        <label className="block mb-8">
           I have repulsive thoughts that I cannot control.
           <input
             type="range"
             name="repulsiveThoughts"
-            min="0"
+            min="1"
             max="5"
             value={formData.repulsiveThoughts}
             onChange={handleInputChange}
@@ -331,7 +334,7 @@ const AssessmentPage = () => {
         {/* Button to proceed */}
         <button
           type="submit"
-          className="px-4 py-2 bg-[#FF7D3D] text-white rounded-md mt-4"
+          className="px-4 py-2 bg-[#FF7D3D] text-white rounded-md mt-4 hover:bg-[#FF5722] transition-colors duration-300"
         >
           Proceed to Assessment
         </button>
@@ -342,5 +345,3 @@ const AssessmentPage = () => {
 };
 
 export default AssessmentPage;
-
-
