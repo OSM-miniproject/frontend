@@ -5,7 +5,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation'
 
-
 const AssessmentPage = () => {
   const [formData, setFormData] = useState({
     gender: '',
@@ -46,7 +45,7 @@ const AssessmentPage = () => {
   
     // Send the form data to the backend API (POST request)
     try {
-      const response = await fetch('http://localhost:5000/api/responses', {  // Change URL to backend server
+      const response = await fetch('http://localhost:7000/api/responses', {  // Change URL to backend server
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -69,11 +68,7 @@ const AssessmentPage = () => {
     }
   };
   
-
   
-  
-  
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Basic Questionnaire</h1>
@@ -347,3 +342,5 @@ const AssessmentPage = () => {
 };
 
 export default AssessmentPage;
+
+
