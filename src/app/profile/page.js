@@ -11,7 +11,8 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 
@@ -61,6 +62,21 @@ const options = {
 export default function Profile() {
   const [date, setDate] = useState(new Date());
   const [selectedCounselor, setSelectedCounselor] = useState(null);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const auth = getAuth();
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser) {
+        setUser(currentUser);
+        // Optional: Log the user object to check the photoURL
+        console.log(currentUser);
+      } else {
+        setUser(null);
+      }
+    });
+    return () => unsubscribe();
+  }, []);
 
   const handleCounselorSelect = (name) => {
     setSelectedCounselor(name);
@@ -73,12 +89,12 @@ export default function Profile() {
       <div className="max-w-2xl bg-white p-6 rounded-lg shadow mx-auto border border-gray-300 hover:border-blue-500 transition duration-300">
         <div className="flex flex-col sm:flex-row items-center mb-6">
           <img
-            src="/path/to/user-image.jpg"
+            src={user?.photoURL || "/path/to/default-user-image.jpg"}
             alt="User Image"
             className="w-16 h-16 rounded-full mr-4 mb-4 sm:mb-0 border border-gray-300 hover:border-blue-500 transition duration-300"
           />
           <div className="text-center sm:text-left">
-            <h2 className="text-xl font-semibold">John Doe</h2>
+            <h2 className="text-xl font-semibold">{user?.displayName || "User Name"}</h2>
             <p className="text-gray-600">Hello, welcome back!</p>
           </div>
         </div>
@@ -88,16 +104,13 @@ export default function Profile() {
           <div className="space-y-4">
             <div>
               <label className="block text-gray-600 mb-1">Name</label>
-              <p className="font-medium">John Doe</p>
+              <p className="font-medium">{user?.displayName || "User Name"}</p>
             </div>
             <div>
               <label className="block text-gray-600 mb-1">Email</label>
-              <p className="font-medium">john.doe@example.com</p>
+              <p className="font-medium">{user?.email || "user@example.com"}</p>
             </div>
-            <div>
-              <label className="block text-gray-600 mb-1">Location</label>
-              <p className="font-medium">New York, USA</p>
-            </div>
+            {/* Add other user information as needed */}
           </div>
         </div>
 

@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.25.9",
     "firebase": "^10.14.1",
     "next": "14.2.8",
     "react": "^18",
