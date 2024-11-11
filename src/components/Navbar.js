@@ -43,14 +43,21 @@ const Navbar = () => {
 
   const handleSectionScroll = (sectionId) => {
     const isHomePage = router.pathname === '/';
+
     if (isHomePage) {
-      // Scroll smoothly if already on the home page
-      document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+      // Directly scroll to the section if already on the home page
+      const element = document.getElementById(sectionId);
+      if (element) {
+        window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
+      }
     } else {
-      // First navigate to home, then scroll
+      // If not on home page, navigate to home and scroll after loading
       router.push('/');
       setTimeout(() => {
-        document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+        const element = document.getElementById(sectionId);
+        if (element) {
+          window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
+        }
       }, 500); // Delay to ensure the page has loaded before scrolling
     }
   };
