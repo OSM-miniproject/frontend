@@ -59,7 +59,6 @@ const StoryDetailPage = () => {
                 'Anxiety Diagnosis': answers.anxietyDiagnosis === 'Yes' ? 1 : 0,
             };
     
-            // Ensure your endpoint is correct
             const response = await fetch('http://localhost:5000/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -159,6 +158,44 @@ const StoryDetailPage = () => {
                             <option value="No">No</option>
                             <option value="Yes">Yes</option>
                         </select>
+
+                        {/* Dynamic question rendering */}
+                        <div className="mt-5">
+                            {currentChapter?.questions?.map((question, index) => (
+                                <div key={index} className="mt-3">
+                                    <label className="block font-semibold">{question.text}</label>
+                                    {question.answerType === 'multiple-choice' ? (
+                                        <select
+                                            onChange={(e) =>
+                                                handleAnswerChange(`question_${index}`, e.target.value)
+                                            }
+                                            className="border p-2 rounded"
+                                        >
+                                            {question.options.map((option, optIndex) => (
+                                                <option key={optIndex} value={option}>
+                                                    {option}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    ) : (
+                                        question.options.map((option, optIndex) => (
+                                            <label key={optIndex} className="inline-flex items-center mr-4">
+                                                <input
+                                                    type="radio"
+                                                    name={`question_${index}`}
+                                                    value={option}
+                                                    onChange={(e) =>
+                                                        handleAnswerChange(`question_${index}`, e.target.value)
+                                                    }
+                                                    className="mr-2"
+                                                />
+                                                {option}
+                                            </label>
+                                        ))
+                                    )}
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 

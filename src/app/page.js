@@ -6,6 +6,7 @@ import Testimonials from "../components/Testimonials";
 import reviews from "../../data";
 import Navbar from "../components/Navbar";
 import "./globals.css";
+import GuideConnect from "@/components/GuideConnect";
 
 export default function Home() {
   return (
@@ -20,15 +21,19 @@ export default function Home() {
 
       {/* <section id="testimonials">
         <Testimonials reviews={reviews} />
-      </section> */}
+        </section> */}
 
       <section id="faqs">
         <Faqs />
       </section>
 
-      <section id="resources">
+      <section id="contactus">
         <Contactus />
       </section>
+
+        <section id="guideconnect">
+          <GuideConnect />
+        </section>
     </div>
   );
 }

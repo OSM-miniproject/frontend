@@ -50,7 +50,12 @@ const AuthForm = ({
       setPassword('');
     } catch (error) {
       console.error('Sign-up error:', error);
+      // Check if error is due to email already in use
+    if (error.code === 'auth/email-already-in-use') {
+      toast.error('Email already in use. Please use a different email or sign in.');
+    } else {
       toast.error('Sign-up failed. Please try again.');
+    }
     }
   };
 
