@@ -7,7 +7,14 @@ import DisplayResult from '../../../components/DisplayResult';
 const StoryDetailPage = () => {
     const { id } = useParams();
     const [story, setStory] = useState(null);
-    const [answers, setAnswers] = useState({});
+    const [answers, setAnswers] = useState({
+        age: 0,
+        durationOfSymptoms: 0,
+        obsessionType: '',
+        compulsionType: '',
+        depressionDiagnosis: 'No',
+        anxietyDiagnosis: 'No',
+    });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [result, setResult] = useState(null);
@@ -31,36 +38,41 @@ const StoryDetailPage = () => {
         if (id) fetchStory();
     }, [id]);
 
-    const handleAnswerChange = (questionId, answer) => {
+    const handleAnswerChange = (field, value) => {
         setAnswers((prevAnswers) => ({
             ...prevAnswers,
-            [questionId]: answer
+            [field]: value
         }));
     };
 
     const handleSubmit = async () => {
         setIsSubmitting(true);
         setResult(null);
-
+    
         try {
             const inputData = {
-                Age: 25,  // Replace with actual data or input
-                Gender: 'Female',  // Replace with actual data or input
-                AnxietyDiagnosis: answers['question1'] === 'Yes' ? 1 : (answers['question1'] === 'No' ? 0 : 2),
-                CompulsionType: answers['question2'] === 'Yes' ? 1 : (answers['question2'] === 'No' ? 0 : 2),
+                Age: parseInt(answers.age),
+                'Duration of Symptoms (months)': parseInt(answers.durationOfSymptoms),
+                'Obsession Type': answers.obsessionType,
+                'Compulsion Type': answers.compulsionType,
+                'Depression Diagnosis': answers.depressionDiagnosis === 'Yes' ? 1 : 0,
+                'Anxiety Diagnosis': answers.anxietyDiagnosis === 'Yes' ? 1 : 0,
             };
-
-            console.log('Sending inputData:', inputData);
-
-            const response = await fetch('http://localhost:5000/api/predict', {
+    
+            // Ensure your endpoint is correct
+            const response = await fetch('http://localhost:5000/predict', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ answers: inputData })
+                body: JSON.stringify(inputData)
             });
-
+    
             if (!response.ok) throw new Error('Failed to submit answers for prediction');
             const data = await response.json();
-            setResult(data.prediction);
+            
+            setResult({
+                severity: data.predicted_severity,
+                percentage: data.predicted_percentage,
+            });
         } catch (error) {
             console.error('Error submitting answers:', error);
             setError(error.message);
@@ -68,99 +80,100 @@ const StoryDetailPage = () => {
             setIsSubmitting(false);
         }
     };
-
-    const handleNext = () => {
-        if (currentChapterIndex < story.chapters.length - 1) {
-            setCurrentChapterIndex(currentChapterIndex + 1);
-        }
-    };
-
-    const handlePrevious = () => {
-        if (currentChapterIndex > 0) {
-            setCurrentChapterIndex(currentChapterIndex - 1);
-        }
-    };
+    
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
 
     const currentChapter = story?.chapters?.[currentChapterIndex];
 
-    if (result !== null) {
+    if (result) {
         return <DisplayResult result={result} answers={answers} />;
     }
-
-    const progress = ((currentChapterIndex + 1) / story?.chapters?.length) * 100;
 
     return (
         <div className="p-5">
             <h1 className="text-3xl font-bold mb-5">{story?.title}</h1>
             <div>
-                <div className="h-2 bg-gray-300 rounded-full mt-4">
-                    <div
-                        className="h-full bg-blue-500 rounded-full"
-                        style={{ width: `${progress}%` }}
-                    ></div>
-                </div>
-
                 <div className="mt-5">
                     <h3 className="text-lg font-semibold">{currentChapter?.chapterTitle}</h3>
                     <p>{currentChapter?.content}</p>
-
+                    
                     <div className="mt-5">
-                        <h3 className="text-lg font-bold">Questions</h3>
-                        {currentChapter?.questions.map((question, index) => (
-                            <div key={index} className="mt-3">
-                                <p>{question.text}</p>
-                                <div className="flex gap-4 mt-2">
-                                    <button
-                                        className={`px-4 py-2 rounded ${answers[question._id] === 'Yes' ? 'bg-blue-500' : 'bg-gray-200'}`}
-                                        onClick={() => handleAnswerChange(question._id, 'Yes')}
-                                    >
-                                        Yes
-                                    </button>
-                                    <button
-                                        className={`px-4 py-2 rounded ${answers[question._id] === 'No' ? 'bg-blue-500' : 'bg-gray-200'}`}
-                                        onClick={() => handleAnswerChange(question._id, 'No')}
-                                    >
-                                        No
-                                    </button>
-                                </div>
-                            </div>
-                        ))}
+                        <label>Age: </label>
+                        <input
+                            type="number"
+                            onChange={(e) => handleAnswerChange('age', e.target.value)}
+                            className="border p-2 rounded mb-3"
+                        />
+
+                        <label>Duration of Symptoms (months): </label>
+                        <input
+                            type="number"
+                            onChange={(e) => handleAnswerChange('durationOfSymptoms', e.target.value)}
+                            className="border p-2 rounded mb-3"
+                        />
+
+                        <h3 className="mt-5 text-lg font-bold">Questions</h3>
+                        
+                        <label>Obsession Type: </label>
+                        <select
+                            onChange={(e) => handleAnswerChange('obsessionType', e.target.value)}
+                            className="border p-2 rounded mb-3"
+                        >
+                            <option value="">Select...</option>
+                            <option value="Harm-related">Harm-related</option>
+                            <option value="Contamination">Contamination</option>
+                            <option value="Hoarding">Hoarding</option>
+                            <option value="Symmetry">Symmetry</option>
+                            <option value="Religious">Religious</option>
+                        </select>
+
+                        <label>Compulsion Type: </label>
+                        <select
+                            onChange={(e) => handleAnswerChange('compulsionType', e.target.value)}
+                            className="border p-2 rounded mb-3"
+                        >
+                            <option value="">Select...</option>
+                            <option value="Checking">Checking</option>
+                            <option value="Washing">Washing</option>
+                            <option value="Ordering">Ordering</option>
+                            <option value="Praying">Praying</option>
+                            <option value="Counting">Counting</option>
+                        </select>
+
+                        <label>Depression Diagnosis: </label>
+                        <select
+                            onChange={(e) => handleAnswerChange('depressionDiagnosis', e.target.value)}
+                            className="border p-2 rounded mb-3"
+                        >
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
+
+                        <label>Anxiety Diagnosis: </label>
+                        <select
+                            onChange={(e) => handleAnswerChange('anxietyDiagnosis', e.target.value)}
+                            className="border p-2 rounded mb-3"
+                        >
+                            <option value="No">No</option>
+                            <option value="Yes">Yes</option>
+                        </select>
                     </div>
                 </div>
 
-                <div className="mt-5 flex justify-between">
+                <div className="mt-5">
                     <button
-                        className="px-6 py-2 bg-gray-500 text-white rounded disabled:opacity-50"
-                        onClick={handlePrevious}
-                        disabled={currentChapterIndex === 0 || isSubmitting}
-                    >
-                        Previous
-                    </button>
-                    {currentChapterIndex === story?.chapters?.length - 1 ? (
-                        <button
-                            className="px-6 py-3 bg-green-500 text-white rounded"
-                            onClick={handleSubmit}
-                            disabled={isSubmitting}
-                        >
-                            Submit
-                        </button>
-                    ) : (
-                        <button
-                        className="px-6 py-3 bg-blue-500 text-white rounded"
-                        onClick={handleNext}
+                        className="px-6 py-3 bg-green-500 text-white rounded"
+                        onClick={handleSubmit}
                         disabled={isSubmitting}
                     >
-                        Next
+                        Submit
                     </button>
-                )}
+                </div>
             </div>
         </div>
-    </div>
-);
+    );
 };
 
 export default StoryDetailPage;
-

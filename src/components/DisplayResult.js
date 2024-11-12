@@ -1,45 +1,17 @@
-// // components/DisplayResult.js
-
-// import React from 'react';
-
-// const DisplayResult = ({ answers, story }) => {
-//     const getAnswerText = (answer) => (answer === 'Yes' ? 'Yes' : 'No');
-
-//     return (
-//         <div className="p-5">
-//             <h1 className="text-3xl font-bold mb-5">Your Answers</h1>
-
-//             <div>
-//                 <h2 className="text-xl font-semibold">Story Title: {story.title}</h2>
-//                 <div className="mt-5">
-//                     <h3 className="text-lg font-semibold">Chapters:</h3>
-//                     {story.chapters.map((chapter, chapterIndex) => (
-//                         <div key={chapterIndex} className="mt-5">
-//                             <h4 className="text-md font-semibold">{chapter.chapterTitle}</h4>
-//                             {chapter.questions.map((question, questionIndex) => (
-//                                 <div key={questionIndex} className="mt-3">
-//                                     <p>{question.text}</p>
-//                                     <p>Your answer: {getAnswerText(answers[question._id])}</p>
-//                                 </div>
-//                             ))}
-//                         </div>
-//                     ))}
-//                 </div>
-//             </div>
-//         </div>
-//     );
-// };
-
-// export default DisplayResult;
-
-
-const DisplayResult = ({ result }) => {
-    return (
-        <div>
-            <h2>Prediction Result</h2>
-            <p>{result === 1 ? 'You may have OCD' : 'No OCD detected'}</p>
-        </div>
-    );
-};
+const DisplayResult = ({ result, answers }) => (
+    <div className="result-container">
+        <h2 className="text-2xl font-bold">Your Prediction Result</h2>
+        <p><strong>OCD Severity:</strong> {result.severity}</p>
+        <p><strong>OCD Percentage:</strong> {result.percentage}%</p>
+        <h3 className="text-lg mt-4">Your Answers:</h3>
+        <ul>
+            {Object.entries(answers).map(([field, answer], index) => (
+                <li key={index}>
+                    {field}: {answer}
+                </li>
+            ))}
+        </ul>
+    </div>
+);
 
 export default DisplayResult;
