@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; 
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
-import { auth } from '../../lib/firebaseconfig'; // Import Firebase auth
+import { auth } from '../../lib/firebaseconfig';
 
 const Navbar = () => {
   const [user, setUser] = useState(null); 
@@ -45,44 +45,40 @@ const Navbar = () => {
     const isHomePage = router.pathname === '/';
 
     if (isHomePage) {
-      // Directly scroll to the section if already on the home page
       const element = document.getElementById(sectionId);
       if (element) {
         window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
       }
     } else {
-      // If not on home page, navigate to home and scroll after loading
       router.push('/');
       setTimeout(() => {
         const element = document.getElementById(sectionId);
         if (element) {
           window.scrollTo({ top: element.offsetTop, behavior: 'smooth' });
         }
-      }, 500); // Delay to ensure the page has loaded before scrolling
+      }, 500);
     }
   };
 
   if (isLoading) {
-    return <div>Loading...</div>; // You might want to replace this with a loading spinner or animation.
+    return <div>Loading...</div>;
   }
 
   return (
     <section className="w-full px-8 sticky top-0 z-50 text-[#1E2D3D] bg-[#FFFFFF] bg-opacity-50 backdrop-blur-md">
       <div className="container flex flex-col flex-wrap items-center justify-between py-5 mx-auto md:flex-row max-w-7xl">
         <div className="relative flex flex-col md:flex-row">
-        <a 
-  href="#_" 
-  onClick={handleHomeClick}
-  className="flex items-center mb-5 font-medium text-[#1E2D3D] lg:w-auto lg:items-center lg:justify-center md:mb-0 cursor-pointer"
->
-  <img 
-    src="https://res.cloudinary.com/domzgxu5n/image/upload/v1731336066/unqw15uxvaudyeopgasq.png" 
-    alt="OCD Logo" 
-    className="h-10 w-auto" 
-  />
-</a>
-
-
+          <a 
+            href="#_" 
+            onClick={handleHomeClick}
+            className="flex items-center mb-5 font-medium text-[#1E2D3D] lg:w-auto lg:items-center lg:justify-center md:mb-0 cursor-pointer"
+          >
+            <img 
+              src="https://res.cloudinary.com/domzgxu5n/image/upload/v1731336066/unqw15uxvaudyeopgasq.png" 
+              alt="OCD Logo" 
+              className="h-10 w-auto" 
+            />
+          </a>
           <nav className="flex flex-wrap items-center md:ml-8">
             {/* Removed Assessments Link */}
           </nav>
@@ -92,25 +88,25 @@ const Navbar = () => {
           <nav className="flex flex-wrap items-center mb-5 text-base md:text-right md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-[#F2F4F7]">
             <a 
               onClick={handleHomeClick} 
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#FFA500] cursor-pointer"
             >
               Home
             </a>
             <a
-              onClick={() => handleSectionScroll('about')} // Smooth scroll to About section
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
+              onClick={() => handleSectionScroll('about')}
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#FFA500] cursor-pointer"
             >
               About
             </a>
             <a
-              onClick={() => handleSectionScroll('faqs')} // Smooth scroll to FAQs section
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
+              onClick={() => handleSectionScroll('faqs')}
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#FFA500] cursor-pointer"
             >
               FaQs
             </a>
             <a 
               onClick={() => router.push('/resources')}
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#006D77] cursor-pointer"
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#FFA500] cursor-pointer"
             >
               Resources
             </a>
@@ -121,14 +117,14 @@ const Navbar = () => {
           {user ? (
             <a 
               onClick={handleLogout} 
-              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#006D77] hover:bg-[#004F57] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
+              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#FFA500] hover:bg-[#FF8C00] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
             >
               Log Out
             </a>
           ) : (
             <a 
               onClick={handleLogin} 
-              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#3ABEFF] hover:bg-[#1E90FF] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
+              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#FFA500] hover:bg-[#FF8C00] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
             >
               Log In
             </a>

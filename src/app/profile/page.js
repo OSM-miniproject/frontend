@@ -59,6 +59,22 @@ const options = {
   },
 };
 
+// Add this const before the Profile component
+const DefaultProfileSvg = () => (
+  <svg
+    className="w-16 h-16 text-gray-400"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+      clipRule="evenodd"
+    />
+  </svg>
+);
+
 export default function Profile() {
   const [date, setDate] = useState(new Date());
   const [selectedCounselor, setSelectedCounselor] = useState(null);
@@ -69,7 +85,6 @@ export default function Profile() {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         setUser(currentUser);
-        // Optional: Log the user object to check the photoURL
         console.log(currentUser);
       } else {
         setUser(null);
@@ -86,15 +101,23 @@ export default function Profile() {
     <main className="p-8 bg-white">
       <h1 className="text-2xl font-bold mb-6 text-center">Profile Page</h1>
 
-      <div className="max-w-2xl bg-white p-6 rounded-lg shadow mx-auto border border-gray-300 hover:border-blue-500 transition duration-300">
+      <div className="max-w-2xl bg-white p-6 rounded-lg shadow mx-auto border border-gray-300 hover:border-orange-500 transition duration-300">
         <div className="flex flex-col sm:flex-row items-center mb-6">
-          <img
-            src={user?.photoURL || "/path/to/default-user-image.jpg"}
-            alt="User Image"
-            className="w-16 h-16 rounded-full mr-4 mb-4 sm:mb-0 border border-gray-300 hover:border-blue-500 transition duration-300"
-          />
+          <div className="w-16 h-16 rounded-full mr-4 mb-4 sm:mb-0 border border-gray-300 hover:border-orange-500 transition duration-300 flex items-center justify-center bg-gray-100">
+            {user?.photoURL ? (
+              <img
+                src={user.photoURL}
+                alt="Profile"
+                className="w-full h-full rounded-full"
+              />
+            ) : (
+              <DefaultProfileSvg />
+            )}
+          </div>
           <div className="text-center sm:text-left">
-            <h2 className="text-xl font-semibold">{user?.displayName || "User Name"}</h2>
+            <h2 className="text-xl font-semibold">
+              {user?.displayName || "User Name"}
+            </h2>
             <p className="text-gray-600">Hello, welcome back!</p>
           </div>
         </div>
@@ -110,7 +133,6 @@ export default function Profile() {
               <label className="block text-gray-600 mb-1">Email</label>
               <p className="font-medium">{user?.email || "user@example.com"}</p>
             </div>
-            {/* Add other user information as needed */}
           </div>
         </div>
 
@@ -146,30 +168,27 @@ export default function Profile() {
             </div>
           </div>
         </div>
-        <div className="bg-white text-black p-6 rounded-md space-y-8 shadow border border-gray-300 hover:border-blue-500 transition duration-300">
-          {/* Test Results */}
+        <div className="bg-white text-black p-6 rounded-md space-y-8 shadow border border-gray-300 hover:border-orange-500 transition duration-300">
           <div>
             <h3 className="text-lg font-semibold mb-4">Test Results:</h3>
-            <p className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 hover:border-blue-500 transition duration-300">
+            <p className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 hover:border-orange-500 transition duration-300">
               Time outcome date
             </p>
-            <p className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 hover:border-blue-500 transition duration-300">
+            <p className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 hover:border-orange-500 transition duration-300">
               Result placeholder 1
             </p>
-            <p className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 hover:border-blue-500 transition duration-300">
+            <p className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 hover:border-orange-500 transition duration-300">
               Result placeholder 2
             </p>
           </div>
 
-          {/* Ongoing Stories */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Ongoing Stories</h3>
-            <p className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 hover:border-blue-500 transition duration-300">
+            <p className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 hover:border-orange-500 transition duration-300">
               Ongoing stories content
             </p>
           </div>
 
-          {/* Counselor Connect */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Counselor connect:</h3>
             <div className="space-y-4">
@@ -180,7 +199,7 @@ export default function Profile() {
                   value="Counselor 1"
                   checked={selectedCounselor === "Counselor 1"}
                   onChange={() => handleCounselorSelect("Counselor 1")}
-                  className="form-radio text-blue-500"
+                  className="form-radio text-orange-500"
                 />
                 <span>Name and qualification 1</span>
               </label>
@@ -191,38 +210,36 @@ export default function Profile() {
                   value="Counselor 2"
                   checked={selectedCounselor === "Counselor 2"}
                   onChange={() => handleCounselorSelect("Counselor 2")}
-                  className="form-radio text-blue-500"
+                  className="form-radio text-orange-500"
                 />
                 <span>Name and qualification 2</span>
               </label>
             </div>
           </div>
 
-          {/* Resource Reading/Saved */}
           <div>
             <h3 className="text-lg font-semibold mb-4">
               Resource reading/saved
             </h3>
             <input
-              className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 placeholder-gray-400 hover:border-blue-500 transition duration-300"
+              className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 placeholder-gray-400 hover:border-orange-500 transition duration-300"
               type="text"
               placeholder="Resource link 1"
             />
             <input
-              className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 placeholder-gray-400 hover:border-blue-500 transition duration-300"
+              className="w-full p-3 mb-4 rounded-md bg-gray-100 border border-gray-300 placeholder-gray-400 hover:border-orange-500 transition duration-300"
               type="text"
               placeholder="Resource link 2"
             />
-            <div className="text-right text-blue-400 cursor-pointer hover:text-blue-600 transition duration-300">
+            <div className="text-right text-orange-400 cursor-pointer hover:text-orange-600 transition duration-300">
               View more
             </div>
           </div>
 
-          {/* Have any problems */}
           <div>
             <h3 className="text-lg font-semibold mb-4">Have any problems</h3>
             <textarea
-              className="w-full p-3 rounded-md bg-gray-100 border border-gray-300 placeholder-gray-400 hover:border-blue-500 transition duration-300"
+              className="w-full p-3 rounded-md bg-gray-100 border border-gray-300 placeholder-gray-400 hover:border-orange-500 transition duration-300"
               placeholder="Write to us"
             />
           </div>
@@ -231,11 +248,8 @@ export default function Profile() {
         <div>
           <h2 className="text-xl font-semibold mb-4">Settings</h2>
           <div className="space-y-4">
-            <button className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition duration-300">
+            <button className="bg-orange-500 text-white px-4 py-2 rounded hover:bg-orange-600 transition duration-300">
               Edit Profile
-            </button>
-            <button className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 ml-2 transition duration-300">
-              Change Password
             </button>
           </div>
         </div>

@@ -33,40 +33,38 @@ const AuthForm = ({
     }
   };
 
-// Modify Email Sign-Up function
-const handleEmailSignUp = async () => {
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    toast.success('Account created successfully!');
-    
-    // Sign out immediately after account creation
-    await signOut(auth);
-    
-    // Set the panel to show the sign-in form
-    setIsRightPanelActive(false); 
-    
-    // Optionally clear the email and password fields
-    setEmail('');
-    setPassword('');
-  } catch (error) {
-    console.error('Sign-up error:', error);
-    toast.error('Sign-up failed. Please try again.');
-  }
-};
+  // Modify Email Sign-Up function
+  const handleEmailSignUp = async () => {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      toast.success('Account created successfully!');
+      
+      // Sign out immediately after account creation
+      await signOut(auth);
+      
+      // Set the panel to show the sign-in form
+      setIsRightPanelActive(false); 
+      
+      // Optionally clear the email and password fields
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      console.error('Sign-up error:', error);
+      toast.error('Sign-up failed. Please try again.');
+    }
+  };
 
 
   // Email Password Reset
-const handlePasswordReset = async () => {
-  try {
-    await sendPasswordResetEmail(auth, email);
-    toast.success('Password reset link sent to your email!');
-  } catch (error) {
-    console.error('Password reset error:', error);
-    toast.error('Failed to send password reset link. Please check the email address.');
-  }
-};
-
-
+  const handlePasswordReset = async () => {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      toast.success('Password reset link sent to your email!');
+    } catch (error) {
+      console.error('Password reset error:', error);
+      toast.error('Failed to send password reset link. Please check the email address.');
+    }
+  };
 
   // Email Sign-In
   const handleEmailSignIn = async () => {
@@ -127,7 +125,7 @@ const handleKeyDown = (e) => {
 
       <div className={`min-h-screen flex flex-col items-center justify-center bg-[#f6f5f7] px-4 font-[${customFont}]`}>
         <button 
-          className="md:hidden mb-4 rounded-[20px] border border-[#FF4B2B] bg-[#FF4B2B] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider transition-transform duration-80 ease-in hover:opacity-90"
+          className="md:hidden mb-4 rounded-[20px] border border-[#FFA500] bg-[#FFA500] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider transition-transform duration-80 ease-in hover:opacity-90"
           onClick={() => setIsMobileSignUp(!isMobileSignUp)}
         >
           Switch to {isMobileSignUp ? 'Sign In' : 'Sign Up'}
@@ -148,7 +146,7 @@ const handleKeyDown = (e) => {
               <input type="text" placeholder="Name" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" />
               <input type="email" placeholder="Email" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" onChange={(e) => setEmail(e.target.value)} />
               <input type="password" placeholder="Password" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" onChange={(e) => setPassword(e.target.value)} />
-              <button onClick={handleEmailSignUp} className="mt-4 rounded-[20px] border border-[#FF4B2B] bg-[#FF4B2B] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider">
+              <button onClick={handleEmailSignUp} className="mt-4 rounded-[20px] border border-[#FFA500] bg-[#FFA500] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider">
                 Sign Up
               </button>
             </form>
@@ -166,15 +164,15 @@ const handleKeyDown = (e) => {
               <span className="text-xs mb-4">or use your account</span>
               <input type="email" placeholder="Email" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" onChange={(e) => setEmail(e.target.value)} />
               <input type="password" placeholder="Password" className="bg-[#eee] border-none rounded-lg p-3 my-2 w-full" onChange={(e) => setPassword(e.target.value)} />
-              <a href="#" className="text-sm text-[#333] no-underline my-4 hover:text-[#FF4B2B]" onClick={handlePasswordReset}>Forgot your password?</a>
-              <button onClick={handleEmailSignIn} className="rounded-[20px] border border-[#FF4B2B] bg-[#FF4B2B] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider">
+              <a href="#" className="text-sm text-[#333] no-underline my-4 hover:text-[#FFA500]" onClick={handlePasswordReset}>Forgot your password?</a>
+              <button onClick={handleEmailSignIn} className="rounded-[20px] border border-[#FFA500] bg-[#FFA500] text-white text-xs font-bold py-3 px-11 uppercase tracking-wider">
                 Sign In
               </button>
               
               {/* Link to toggle to Sign Up */}
               <p className="mt-4 text-xs">
                 Haven't registered yet?{' '}
-                <span onClick={() => setIsRightPanelActive(true)} className="text-[#FF4B2B] cursor-pointer font-semibold hover:underline">
+                <span onClick={() => setIsRightPanelActive(true)} className="text-[#FFA500] cursor-pointer font-semibold hover:underline">
                   Sign up
                 </span>
               </p>
@@ -183,18 +181,18 @@ const handleKeyDown = (e) => {
 
           {/* Overlay Container */}
           <div className={`hidden md:block absolute top-0 left-1/2 w-1/2 h-full overflow-hidden transition-transform duration-600 ease-in-out z-20 ${isRightPanelActive ? '-translate-x-full' : ''}`}>
-            <div className={`bg-gradient-to-r from-[#FF4B2B] to-[#FF416C] text-white relative -left-full h-full w-[200%] transform transition-transform duration-600 ease-in-out ${isRightPanelActive ? 'translate-x-1/2' : 'translate-x-0'}`}>
+            <div className={`bg-gradient-to-r from-[#FFA500] to-[#FF8C00] text-white relative -left-full h-full w-[200%] transform transition-transform duration-600 ease-in-out ${isRightPanelActive ? 'translate-x-1/2' : 'translate-x-0'}`}>
               <div className={`absolute top-0 left-0 flex items-center justify-center flex-col w-1/2 h-full px-12 text-center ${isRightPanelActive ? 'translate-x-0' : '-translate-x-full'}`}>
                 <h1 className="font-bold text-2xl">Welcome Back!</h1>
                 <p className="mt-4 mb-6 text-xs">To keep connected with us please login with your personal info</p>
-                <button onClick={() => setIsRightPanelActive(false)} className="rounded-[20px] border border-white bg-transparent text-white text-xs font-bold py-3 px-11 uppercase tracking-wider hover:bg-white hover:text-[#FF4B2B]">
+                <button onClick={() => setIsRightPanelActive(false)} className="rounded-[20px] border border-white bg-transparent text-white text-xs font-bold py-3 px-11 uppercase tracking-wider hover:bg-white hover:text-[#FFA500]">
                   Sign In
                 </button>
               </div>
               <div className={`absolute top-0 left-1/2 flex items-center justify-center flex-col w-1/2 h-full px-12 text-center ${isRightPanelActive ? 'translate-x-full' : 'translate-x-0'}`}>
                 <h1 className="font-bold text-2xl">Hello, Friend!</h1>
                 <p className="mt-4 mb-6 text-xs">Enter your personal details and start your journey with us</p>
-                <button onClick={() => setIsRightPanelActive(true)} className="rounded-[20px] border border-white bg-transparent text-white text-xs font-bold py-3 px-11 uppercase tracking-wider hover:bg-white hover:text-[#FF4B2B]">
+                <button onClick={() => setIsRightPanelActive(true)} className="rounded-[20px] border border-white bg-transparent text-white text-xs font-bold py-3 px-11 uppercase tracking-wider hover:bg-white hover:text-[#FFA500]">
                   Sign Up
                 </button>
               </div>
