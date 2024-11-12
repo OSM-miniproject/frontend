@@ -58,6 +58,37 @@ const options = {
     },
   },
 };
+const ProfileImage = ({ src, alt }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
+
+  useEffect(() => {
+    if (src) {
+      setIsLoading(true);
+      setHasError(false);
+      const img = new Image();
+      img.src = src;
+      img.onload = () => setIsLoading(false);
+      img.onerror = () => {
+        setIsLoading(false);
+        setHasError(true);
+      };
+    }
+  }, [src]);
+
+  if (!src || hasError || isLoading) {
+    return <DefaultProfileSvg />;
+  }
+
+  return (
+    <img
+      src={src}
+      alt={alt}
+      className="w-full h-full rounded-full"
+      onError={() => setHasError(true)}
+    />
+  );
+};
 
 // Add this const before the Profile component
 const DefaultProfileSvg = () => (
@@ -104,15 +135,7 @@ export default function Profile() {
       <div className="max-w-2xl bg-white p-6 rounded-lg shadow mx-auto border border-gray-300 hover:border-orange-500 transition duration-300">
         <div className="flex flex-col sm:flex-row items-center mb-6">
           <div className="w-16 h-16 rounded-full mr-4 mb-4 sm:mb-0 border border-gray-300 hover:border-orange-500 transition duration-300 flex items-center justify-center bg-gray-100">
-            {user?.photoURL ? (
-              <img
-                src={user.photoURL}
-                alt="Profile"
-                className="w-full h-full rounded-full"
-              />
-            ) : (
-              <DefaultProfileSvg />
-            )}
+            <ProfileImage src={user?.photoURL} alt="Profile" />
           </div>
           <div className="text-center sm:text-left">
             <h2 className="text-xl font-semibold">
