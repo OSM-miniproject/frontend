@@ -1,3 +1,4 @@
+import "../../../app/globals.css";
 const Treatment = () => (
   <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-start px-4 py-8">
     <h1 className="text-4xl font-bold text-gray-800 mb-6">Treatment for OCD</h1>

@@ -1,3 +1,4 @@
+import '../app/globals.css';
 const About = () => {
     return (
       <section className="text-center mb-10">

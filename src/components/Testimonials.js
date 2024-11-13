@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import TestimonialCard from './Testimonialcard';
 import { FiChevronLeft, FiChevronRight } from "react-icons/fi";
-
+import '../app/globals.css';
 const Testimonials = (props) => {
     const { reviews } = props; 
     const [currentIndex, setCurrentIndex] = useState(0);

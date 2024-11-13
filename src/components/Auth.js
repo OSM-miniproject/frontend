@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { signInWithGoogle, logout } from '../lib/firebaseAuth';
 import { auth } from '../lib/firebaseConfig'; // Import Firebase auth
-
+import '../app/globals.css';
 export default function Auth() {
   const [user, setUser] = useState(null);
 

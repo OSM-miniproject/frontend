@@ -1,4 +1,5 @@
 // src/components/Result.js
+import '../app/globals.css';
 const Result = ({ answers }) => {
     return (
         <div className="mt-5">

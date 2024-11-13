@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-
+import '../app/globals.css';
 const Resources = () => {
   const router = useRouter();
 
