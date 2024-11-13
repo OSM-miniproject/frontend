@@ -36,8 +36,16 @@ const AuthForm = ({
   // Modify Email Sign-Up function
   const handleEmailSignUp = async () => {
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
       toast.success('Account created successfully!');
+
+      if (!user.displayName) {
+        await updateProfile(user, {
+          displayName: 'Default Name',  // Default name, or prompt user to set this
+          photoURL: 'https://example.com/default-profile.jpg' // Default photo, or prompt user to set this
+        });
+      }
       
       // Sign out immediately after account creation
       await signOut(auth);
@@ -108,6 +116,7 @@ useEffect(() => {
 
     // If just signed up, keep the user on the sign-in form
     if (hasJustSignedUp && !isRightPanelActive) {
+      
       setHasJustSignedUp(false); // Reset after showing the sign-in form
     }
   });

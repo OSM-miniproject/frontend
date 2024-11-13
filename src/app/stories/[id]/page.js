@@ -79,12 +79,11 @@ const StoryDetailPage = () => {
             setIsSubmitting(false);
         }
     };
-    
+
+    const currentChapter = story?.chapters?.[currentChapterIndex];
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
-
-    const currentChapter = story?.chapters?.[currentChapterIndex];
 
     if (result) {
         return <DisplayResult result={result} answers={answers} />;

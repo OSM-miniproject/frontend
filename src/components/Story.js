@@ -9,17 +9,14 @@ const Story = ({ story }) => {
 
   return (
     <div className="max-w-md p-4 bg-white rounded-lg shadow-lg mb-6">
-      {/* Display the title */}
       <h2 className="text-xl font-semibold text-purple-700 cursor-pointer" onClick={toggleExpand}>
         {story.title}
       </h2>
 
-      {/* Show full story and options if expanded */}
       {isExpanded && (
         <div className="mt-2">
           <p className="text-gray-600">{story.description}</p>
 
-          {/* Natural questions for dataset features */}
           <div className="mt-4">
             <label className="block">
               <input
@@ -44,7 +41,6 @@ const Story = ({ story }) => {
             </label>
           </div>
 
-          {/* Hide button to collapse the story */}
           <button
             onClick={toggleExpand}
             className="mt-4 text-white bg-purple-600 hover:bg-purple-700 px-4 py-2 rounded"
