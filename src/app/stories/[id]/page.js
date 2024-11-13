@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import DisplayResult from '../../../components/DisplayResult';
-import '../app/globals.css';
+import '../../globals.css';
 const StoryDetailPage = () => {
     const { id } = useParams();
     const [story, setStory] = useState(null);
