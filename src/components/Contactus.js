@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from 'react';
-
+import '../app/globals.css';
 const ContactUs = () => {
 
   const [formData, setFormData] = useState({

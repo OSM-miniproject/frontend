@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-
+import '../app/globals.css';
 const FAQs = () => {
   const [activeIndex, setActiveIndex] = useState(null);
 

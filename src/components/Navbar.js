@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation'; 
 import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
 import { auth } from '../../lib/firebaseconfig';
-
+import '../app/globals.css';
 const Navbar = () => {
   const [user, setUser] = useState(null); 
   const [isLoading, setIsLoading] = useState(false); 

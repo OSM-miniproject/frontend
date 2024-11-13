@@ -1,5 +1,5 @@
 import React from "react";
-
+import '../globals.css'
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import "../globals.css";
 export default function Page() {

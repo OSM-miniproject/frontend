@@ -7,6 +7,7 @@ import reviews from "../../data";
 import Navbar from "../components/Navbar";
 import "./globals.css";
 import GuideConnect from "@/components/GuideConnect";
+import WebcamControl from "@/components/WebcamControl";
 
 export default function Home() {
   return (
