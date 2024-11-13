@@ -159,7 +159,6 @@ const StoryDetailPage = () => {
                             <option value="Yes">Yes</option>
                         </select>
 
-                        {/* Dynamic question rendering */}
                         <div className="mt-5">
                             {currentChapter?.questions?.map((question, index) => (
                                 <div key={index} className="mt-3">
