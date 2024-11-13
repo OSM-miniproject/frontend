@@ -88,25 +88,25 @@ const Navbar = () => {
           <nav className="flex flex-wrap items-center mb-5 text-base md:text-right md:mb-0 md:pl-8 md:ml-8 md:border-l md:border-[#F2F4F7]">
             <a 
               onClick={handleHomeClick} 
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#FFA500] cursor-pointer"
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#ff4b2b] cursor-pointer"
             >
               Home
             </a>
             <a
               onClick={() => handleSectionScroll('about')}
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#FFA500] cursor-pointer"
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#ff4b2b] cursor-pointer"
             >
               About
             </a>
             <a
               onClick={() => handleSectionScroll('faqs')}
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#FFA500] cursor-pointer"
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#ff4b2b] cursor-pointer"
             >
               FaQs
             </a>
             <a 
               onClick={() => router.push('/resources')}
-              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#FFA500] cursor-pointer"
+              className="mr-5 font-medium leading-6 text-[#1E2D3D] hover:text-[#ff4b2b] cursor-pointer"
             >
               Resources
             </a>
@@ -117,14 +117,14 @@ const Navbar = () => {
           {user ? (
             <a 
               onClick={handleLogout} 
-              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#FFA500] hover:bg-[#FF8C00] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
+              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#ff4b2b] hover:bg-[#FF416C] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
             >
               Log Out
             </a>
           ) : (
             <a 
               onClick={handleLogin} 
-              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#FFA500] hover:bg-[#FF8C00] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
+              className="text-base font-medium leading-6 text-[#FFFFFF] bg-[#ff4b2b] hover:bg-[#FF416C] px-5 py-2 rounded-lg transition duration-150 ease-in-out cursor-pointer"
             >
               Log In
             </a>
