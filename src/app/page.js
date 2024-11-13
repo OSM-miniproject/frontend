@@ -14,7 +14,6 @@ export default function Home() {
     <div>
       <section id="home">
         <Hero />
-        <WebcamControl />
       </section>
 
       <section id="about">
